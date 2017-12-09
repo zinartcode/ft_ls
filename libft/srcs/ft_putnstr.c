@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/05 15:46:29 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/08 21:49:59 by azinnatu         ###   ########.fr       */
+/*   Created: 2017/12/08 21:44:55 by azinnatu          #+#    #+#             */
+/*   Updated: 2017/12/08 21:45:09 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
+#include <unistd.h>
 
-
-int main(int ac, char **av)
+int		ft_putnstr(char const *s, size_t len)
 {
-	int		i;
-	char	*opts;
+	size_t	i;
 
-	i = 0;
-	opts = "";
-	if (ac == 1)
-		print_name();
-	else
-		if(av[1][0] == '-')
-			usage();
-		return 0;
+	i = -1;
+	while (++i < len)
+		write(1, &s[i], 1);
+	return (i);
 }

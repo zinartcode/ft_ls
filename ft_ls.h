@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 16:33:16 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/07 18:12:45 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/08 21:49:56 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ typedef struct		s_file
 	struct dirent	*sd;
 }					t_file;
 
-void				print_name(t_file *list);
+void				print_name();
+void				print_time();
 void				print_permissions(mode_t mode);
+int					usage(void);
 
 #endif
