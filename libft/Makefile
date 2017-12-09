@@ -6,7 +6,7 @@
 #    By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/29 02:26:13 by ydang             #+#    #+#              #
-#    Updated: 2017/12/02 15:03:25 by azinnatu         ###   ########.fr        #
+#    Updated: 2017/12/08 21:47:34 by azinnatu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC_NAME += ft_bzero.c \
 			ft_memset.c \
 			ft_putchar.c \
 			ft_putstr.c \
+			ft_putnstr.c \
 			ft_strcat.c \
 			ft_strncat.c \
 			ft_strlcat.c \

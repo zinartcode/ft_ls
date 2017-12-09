@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 15:43:42 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/02 15:03:22 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/08 21:46:52 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void				ft_putnbr_fd(int n, int fd);
 void				ft_putnbr(int n);
 void				ft_putstr_fd(const char *s, int fd);
 void				ft_putstr(const char *s);
+int					ft_putnstr(char const *s, size_t len);
 void				ft_strclr(char *s);
 void				ft_strdel(char **as);
 int					ft_strequ(const char *s1, const char *s2);
