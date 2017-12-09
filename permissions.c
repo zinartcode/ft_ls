@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 16:48:17 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/07 16:50:30 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/08 23:36:09 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,22 @@ void		print_permissions(mode_t mode)
 	else
 		ft_putchar((mode & S_IXOTH) ? 'x' : '-');
 	ft_putchar(' ');
+}
+
+void		print_filetype(mode_t mode)
+{
+	if ((mode & S_IFMT) == S_IFLNK)
+		ft_putchar('l');
+	else if ((mode & S_IFMT) == S_IFDIR)
+		ft_putchar('d');
+	else if ((mode & S_IFMT) == S_IFCHR)
+		ft_putchar('c');
+	else if ((mode & S_IFMT) == S_IFBLK)
+		ft_putchar('b');
+	else if ((mode & S_IFMT) == S_IFSOCK)
+		ft_putchar('s');
+	else if ((mode & S_IFMT) == S_IFIFO)
+		ft_putchar('f');
+	else if ((mode & S_IFMT) == S_IFREG)
+		ft_putchar('-');
 }
