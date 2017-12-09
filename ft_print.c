@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 15:38:20 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/08 22:08:45 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/09 15:30:42 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,47 @@ void	print_time(struct timespec ts)
 		ft_putnstr(&f_mtime[19], 5);
 	else
 		ft_putnstr(&f_mtime[11], 5);
+}
+
+void	print_user_group(struct stat mystat)
+{
+	struct	passwd *pwd;  //for used-ID	
+	struct	group *grp;   //for group-ID
+
+	pwd = getpwuid(mystat.st_uid);
+	grp = getgrgid(mystat.st_gid);
+	ft_putstr(pwd->pw_name);
+	ft_putchar(' ');
+	ft_putchar(' ');
+	ft_putstr(grp->gr_name);
+
+}
+
+void	total_size(void)
+{
+	DIR *dir;
+	struct	dirent *sd;
+	struct	stat mystat;
+	int	total;
+
+	total = 0;
+	dir = opendir(".");
+	if(dir == NULL)
+	{
+		ft_putstr("Error");
+		exit(1);
+	}
+	while((sd = readdir(dir)) != NULL)
+	{
+		if (sd->d_name[0] != '.' && sd->d_name[ft_strlen(sd->d_name)-1] != '~') 
+		{
+			if ((stat(sd->d_name, &mystat)) == 0)
+			{
+				total += mystat.st_blocks;
+			}
+		}
+	}
+	ft_putstr("total ");
+	ft_putnbr(total);
+	ft_putchar('\n');
 }

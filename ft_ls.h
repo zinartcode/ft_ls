@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 16:33:16 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/08 21:49:56 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/09 15:29:20 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ typedef struct		s_file
 
 void				print_name();
 void				print_time();
+void				print_user_group(struct stat mystat);
 void				print_permissions(mode_t mode);
+void				print_filetype(mode_t mode);
+void				total_size(void);
 int					usage(void);
 
 #endif
