@@ -6,63 +6,84 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 19:51:45 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/09 15:28:48 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/16 21:11:50 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int usage(void)
+int usage(char **av)
 {
-
 	DIR	*dir;
 	struct	dirent *sd;
 	struct	stat mystat;
+	t_file *list;
+	 int	i;
 
-	// struct 	passwd *grd;	
-	// char buf[512];
+	 i = 0;
+	 list = ft_memalloc(sizeof(t_file));
+	 ft_putstr("my av: ");
+	 ft_putstr(*av);  //av from main.c
+	 ft_putchar('\n');
 
-	// pwd = getpwuid(mystat.st_uid);
-	// grd = getpwnam(mystat.st_gid);
 	dir = opendir(".");
 	if(dir == NULL)
 	{
 		ft_putstr("Error");
 		exit(1);
 	}
-	total_size();
+
 	while((sd = readdir(dir)) != NULL)
 	{
-		if (sd->d_name[0] != '.' && sd->d_name[ft_strlen(sd->d_name)-1] != '~') 
+		if ((stat(sd->d_name, &mystat)) == 0)
 		{
-			if ((stat(sd->d_name, &mystat)) == 0)
-			{
-				print_filetype(mystat.st_mode);
-				print_permissions(mystat.st_mode);
-				ft_putchar(' ');
-				ft_putnbr(mystat.st_nlink);
-				ft_putchar(' ');
-				print_user_group(mystat);
-				ft_putchar(' ');
-				ft_putchar(' ');
-				ft_putnbr(mystat.st_size);
-				ft_putchar(' ');				
-				print_time(mystat.st_mtimespec);
-				ft_putchar(' ');
-				ft_putstr(sd->d_name);
-				ft_putchar('\n');
-
-			}
-			else
-			{	
-				ft_putstr("Error");
-				exit(1);
-			}
+			list->total +=mystat.st_blocks;
+			i++;
 		}
+	}
+	ft_putstr("total ");
+	ft_putnbr(list->total);
+	ft_putchar('\n');
+	ft_putnbr(i);
+	ft_putchar('\n');
+
+		dir = opendir(".");
+	if(dir == NULL)
+	{
+		ft_putstr("Error");
+		exit(1);
 	}
 
 
-	closedir (dir);
+	while((sd = readdir(dir)) != NULL)
+	{
+		if ((stat(sd->d_name, &mystat)) == 0)
+		{
+			list->permissions[0] = (S_ISDIR(mystat.st_mode)) ? 'd' : '-';
+			list->permissions[1] = (mystat.st_mode & S_IRUSR) ? 'r' : '-';
+			list->permissions[2] = (mystat.st_mode & S_IWUSR) ? 'w' : '-';
+			list->permissions[3] = (mystat.st_mode & S_IXUSR) ? 'x' : '-';
+			list->permissions[4] = (mystat.st_mode & S_IRGRP) ? 'r' : '-';
+			list->permissions[5] = (mystat.st_mode & S_IWGRP) ? 'w' : '-';
+			list->permissions[6] = (mystat.st_mode & S_IXGRP) ? 'x' : '-';
+			list->permissions[7] = (mystat.st_mode & S_IROTH) ? 'r' : '-';
+			list->permissions[8] = (mystat.st_mode & S_IWOTH) ? 'w' : '-';
+			list->permissions[9] = (mystat.st_mode & S_IXOTH) ? 'x' : '-';
+			list->permissions[10] = '\0';
+			list->nlinks = (int)mystat.st_nlink;
+			list->username = getpwuid(mystat.st_uid)->pw_name;
+			list->groupname = getgrgid(mystat.st_gid)->gr_name;
+			list->byte_size = (int)mystat.st_size;
+			list->block_size = (int)mystat.st_blocks;
+			list->date_raw = (int)mystat.st_mtimespec.tv_sec;
+			list->name = sd->d_name;
+			// list->date = mod_time(mystat.st_mtimespec.tv_sec);
+			list->nfiles = i++;
+		}
+		print_l(list);
+	}
+	// print_l(list);
+	closedir(dir);
 
     return 0;
 }

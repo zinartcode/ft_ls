@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 16:33:16 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/09 15:29:20 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/18 20:54:41 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,64 @@
 #include <fcntl.h>
 #include <limits.h>
 
+// typedef struct		s_file
+// {
+// 	int				sum;
+// 	char			*name;
+// 	struct stat		mystat;
+// 	struct s_file	*next;
+// 	struct dirent	*sd;
+// }					t_file;
+
+typedef struct		s_data
+{
+	void			*data;
+	struct s_list	*next;
+}					t_data;
+
+typedef struct		s_opt
+{
+	int				is_l;
+	int				is_upper_r;
+	int				is_a;
+	int				is_lower_r;
+	int				is_t;
+	char			*path;
+}					t_opt;
+
 typedef struct		s_file
 {
+	int				nfiles;
+	char			*path;
+	char			permissions[11];
+	int				nlinks;
+	char			*username;
+	char			*groupname;
+	int				byte_size;
+	int				block_size;
+	int				date_raw;
+	int				total;
+	t_list			*sub_dirs;
 	char			*name;
-	struct stat		mystat;
-	struct s_file	*next;
-	struct dirent	*sd;
+	time_t			date;
 }					t_file;
 
 void				print_name();
-void				print_time();
+void				print_time(struct timespec ts);
 void				print_user_group(struct stat mystat);
 void				print_permissions(mode_t mode);
 void				print_filetype(mode_t mode);
+void 				print_l(t_file *list);
 void				total_size(void);
-int					usage(void);
+void				quicksort(char **tab, int size);
+void	  			sort_list(t_list *lst);
+int					cmp(int a, int b);
+int					sort_alph(struct dirent *tab, unsigned int size);
+int					usage(char **av);
+char				*mod_time(time_t mtime);
+void				get_flags(t_opt *opts, char **av);
+void				test_opts(t_opt *opts);
+void				check_file(char *n);
+void				check_arg(t_opt *opts, char **av);
 
 #endif

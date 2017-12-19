@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 15:43:42 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/08 21:46:52 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/13 00:09:22 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct		s_list
 	void			*content;
 	size_t			content_size;
 	struct s_list	*next;
+	int				data;
 }					t_list;
 t_list				*ft_lstnew(const void *content, size_t content_size);
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
@@ -82,6 +83,7 @@ char				*ft_strsub(const char *s, unsigned int start, size_t len);
 char				*ft_strtrim(char const *s);
 char				*ft_strndup(const char *s1, size_t n);
 char				*ft_strnjoin(char const *s1, char const *s2, size_t len);
+void				ft_swap(int *a, int *b);
 int					get_next_line(const int fd, char **line);
 
 #endif

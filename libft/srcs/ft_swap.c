@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcat.c                                        :+:      :+:    :+:   */
+/*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/12 23:11:42 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/12 23:14:04 by azinnatu         ###   ########.fr       */
+/*   Created: 2017/12/10 22:23:13 by azinnatu          #+#    #+#             */
+/*   Updated: 2017/12/11 14:22:59 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcat(char *s1, const char *s2)
+void	ft_swap(int *a, int *b)
 {
-	size_t i;
-	size_t j;
+	int	tmp;
 
-	i = 0;
-	j = 0;
-	while (s1[i] != '\0')
-	{
-		i++;
-	}
-	while (s2[j] != '\0')
-	{
-		s1[i + j] = s2[j];
-		j++;
-	}
-	s1[i + j] = '\0';
-	return (s1);
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
 }
