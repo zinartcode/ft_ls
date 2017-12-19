@@ -6,13 +6,15 @@
 #    By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 19:05:46 by azinnatu          #+#    #+#              #
-#    Updated: 2017/12/07 20:52:25 by azinnatu         ###   ########.fr        #
+#    Updated: 2017/12/12 00:01:47 by azinnatu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 OBJS =	main.o 					\
 		permissions.o 			\
 		usage.o					\
+		sort.o					\
+		print_opts.o			\
 		ft_print.o				
 
 LIBFT= libft/libft.a
