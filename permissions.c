@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 16:48:17 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/11 14:22:57 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/19 16:40:28 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,32 @@ void		print_filetype(mode_t mode)
 		ft_putchar('f');
 	else if ((mode & S_IFMT) == S_IFREG)
 		ft_putchar('-');
+}
+
+void	read_files(char *path, t_file *list, t_opt *opts)
+{
+	DIR				*dir;
+	struct dirent	*ent;
+	struct stat 	mystat;
+	t_file			*n_list;
+
+	dir = NULL;
+	ent = NULL;
+	n_list = list;
+	if ((dir = opendir(path)) == NULL)
+		ft_putstr("read_file: Failed to open Dir.");
+	while ((ent = readdir(dir)) != NULL)
+	{
+		if (opts->is_a == 0 && ent->d_name[0] == '.')
+			continue;
+		if (!(n_list = (t_file *)malloc(sizeof(t_file))))
+			ft_putstr("read_files: failed to malloc n_file.");
+		getstats(&mystat, n_list, opts->path);
+		n_list->name = ent->d_name;
+		 ft_putstr(ent->d_name);  //test
+		 ft_putchar('\n');  //test
+
+	}
+	free(ent);
+	closedir(dir);
 }
