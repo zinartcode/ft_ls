@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 16:33:16 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/19 19:43:53 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/19 23:40:14 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,6 @@ void				process_args(t_opt *opts, t_file *list, DIR *dir);
 void				directory_add_slash(char **path);
 void				read_files(char *path, t_file *list, t_opt *opts);
 void				getstats(struct stat *mystat, t_file *list, char *path);
+char				*ft_new_path(char *original, char *name);
 
 #endif

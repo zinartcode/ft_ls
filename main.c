@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 15:46:29 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/19 20:16:29 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/19 23:48:03 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void check_arg(t_opt *opts, char **av)
 {
 	DIR	*dir;
-	// struct	dirent *sd;
 	struct stat mystat;
-	// char	*name;
 	t_file *list;
 
 	opts->path = *av;
@@ -29,7 +27,6 @@ void check_arg(t_opt *opts, char **av)
 		{
 			printf("it is a directory: %s\n", opts->path);  //test
 			process_args(opts, list, dir);
-			// read_files(*av, list, opts);
 		}
 
 		else if(stat(opts->path, &mystat) == 0 && S_ISREG(mystat.st_mode))
@@ -45,26 +42,20 @@ void check_arg(t_opt *opts, char **av)
 	}
 }
 
-// void	directory_add_slash(char **path)
-// {
-// 	int		len;
-// 	char	*tmp;
-// 	len = ft_strlen(*path);
-// 	if ((*(*path)) && ((*path)[len - 1] != '/'))
-// 	{
-// 		tmp = ft_strjoin(*path, "/");
-// 		free((*path));
-// 		(*path) = tmp;
-// 	}
-// }
-
-char	*ft_new_path(char *original, char *dir)
+char	*ft_new_path(char *original, char *name)
 {
-	char	*new_path;
+	int		len;
+	char	*temp;
 
-	new_path = ft_strjoin(original, "/");
-	new_path = ft_strjoin(new_path, dir);
-	return (new_path);
+	len = ft_strlen(original);
+	printf("%s\n", name);
+	if ((*original) && ((original)[len - 1] != '/'))
+		original = ft_strjoin(original, "/");
+		temp = ft_strjoin(original, name);
+		// printf("path is: %s\n", temp);
+		free(original);
+		free(temp);
+		return(temp);
 }
 
 void	process_args(t_opt *opts, t_file *list, DIR *dir)
@@ -74,25 +65,13 @@ void	process_args(t_opt *opts, t_file *list, DIR *dir)
 	int	i;
 	char	*p;
 
-	// mystat = ft_memalloc(sizeof(stat));
 	i = 0;
-	p = ".";
-	p = ft_strjoin(opts->path, "/");
-	// directory_add_slash(&p);
-	// printf(" my dir path: %s", opts->path);
-	dir  = opendir(p);
+	dir  = opendir(opts->path);
 	while((sd = readdir(dir)) != NULL)
 	{
-		list->name = sd->d_name;
-		// ft_putstr(sd->d_name);  //test
-		// ft_putchar('\n');  //test
-		if ((stat(sd->d_name, &mystat)) == 0)
-		{
-			ft_putstr(sd->d_name);  //test
-			ft_putchar('\n'); 
-			list->total += mystat.st_blocks;
-			// i++;
-		}
+		p = ft_new_path(opts->path, sd->d_name);
+		if ((stat(p, &mystat)) == 0)
+		list->total += mystat.st_blocks;
 		i++;
 	}
 	ft_putstr("total ");  //test
@@ -101,8 +80,6 @@ void	process_args(t_opt *opts, t_file *list, DIR *dir)
 	ft_putstr("number of files: ");  //test
 	ft_putnbr(i);  //test
 	ft_putchar('\n');  //test
-
-	// free(mystat);
 	closedir(dir);
 }
 
@@ -116,7 +93,7 @@ void	get_flags(t_opt *opts, char **av)
 	size_t			i;
 
 	i = ft_strlen(*av);
-	opts->path = ".";
+	// opts->path = ".";
 	if(av[0][0] == '-' && av[0][1] != '\0')
 	{
 		while(--i >= 1)
@@ -161,12 +138,8 @@ int main(int ac, char **av)
 			// ft_putstr(av[i]);
 			get_flags(&opts, &av[i]);
 			check_arg(&opts, &av[i]);
-			// usage(av);
 			i++;
-		}
-		// ft_putstr("ac >=2, i is ");  //test
-		// ft_putnbr(i);				//test
-		// ft_putchar('\n');			//test		
+		}	
 	}
 	return 0;
 }
