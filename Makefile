@@ -6,7 +6,7 @@
 #    By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 19:05:46 by azinnatu          #+#    #+#              #
-#    Updated: 2017/12/19 19:44:53 by azinnatu         ###   ########.fr        #
+#    Updated: 2017/12/20 00:02:46 by azinnatu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ OBJS =	main.o 					\
 		usage.o					\
 		sort.o					\
 		print_opts.o			\
+		process_args.o			\
 		ft_print.o				
 
 LIBFT= libft/libft.a
