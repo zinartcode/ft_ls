@@ -6,7 +6,7 @@
 #    By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 19:05:46 by azinnatu          #+#    #+#              #
-#    Updated: 2017/12/12 00:01:47 by azinnatu         ###   ########.fr        #
+#    Updated: 2017/12/19 19:44:53 by azinnatu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ LIBS = $(LIBFT)
 
 HEADERS = ft_ls.h ./libft/includes/libft.h
 
-CFLAGS += -Wall -Werror -Wextra
+CFLAGS +=  -g
 
 NAME = ft_ls
 

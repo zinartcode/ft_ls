@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 15:46:29 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/18 20:54:47 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/19 20:16:29 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,95 @@
 void check_arg(t_opt *opts, char **av)
 {
 	DIR	*dir;
-	struct	dirent *sd;
+	// struct	dirent *sd;
+	struct stat mystat;
 	// char	*name;
 	t_file *list;
 
+	opts->path = *av;
 	list = ft_memalloc(sizeof(t_file));
 	if(av[0][0] != '-')
 	{
-		if((dir = opendir(*av)) == NULL)
+		dir = opendir(*av);
+		if(stat(opts->path, &mystat) == 0 && S_ISDIR(mystat.st_mode))
 		{
-			ft_putstr("ft_ls: ");
-			ft_putstr(*av);
+			printf("it is a directory: %s\n", opts->path);  //test
+			process_args(opts, list, dir);
+			// read_files(*av, list, opts);
+		}
+
+		else if(stat(opts->path, &mystat) == 0 && S_ISREG(mystat.st_mode))
+			printf("it is a file: %s\n", opts->path);  //test
+		else
+		{
+			ft_putstr("ft_ls: ");  
+			ft_putstr(*av);  
 			ft_putstr(": No such file or directory\n");
 			exit(1);
 		}
-		if((sd = readdir(dir)) != NULL)
-		{
-			// name = sd->d_name;
-			// printf("name is %s\n", name);
-			opts->path = *av;
-
-			test_opts(opts);  //test
-			// check_file(char *n);  //after storing names
-		}
+		closedir(dir);
 	}
+}
 
+// void	directory_add_slash(char **path)
+// {
+// 	int		len;
+// 	char	*tmp;
+// 	len = ft_strlen(*path);
+// 	if ((*(*path)) && ((*path)[len - 1] != '/'))
+// 	{
+// 		tmp = ft_strjoin(*path, "/");
+// 		free((*path));
+// 		(*path) = tmp;
+// 	}
+// }
 
-	 			// test_opts(opts);
-	 	// else
-			// ft_putstr("Invalid option for dir"); //check if dir
+char	*ft_new_path(char *original, char *dir)
+{
+	char	*new_path;
+
+	new_path = ft_strjoin(original, "/");
+	new_path = ft_strjoin(new_path, dir);
+	return (new_path);
+}
+
+void	process_args(t_opt *opts, t_file *list, DIR *dir)
+{
+	struct stat mystat;
+	struct dirent *sd;
+	int	i;
+	char	*p;
+
+	// mystat = ft_memalloc(sizeof(stat));
+	i = 0;
+	p = ".";
+	p = ft_strjoin(opts->path, "/");
+	// directory_add_slash(&p);
+	// printf(" my dir path: %s", opts->path);
+	dir  = opendir(p);
+	while((sd = readdir(dir)) != NULL)
+	{
+		list->name = sd->d_name;
+		// ft_putstr(sd->d_name);  //test
+		// ft_putchar('\n');  //test
+		if ((stat(sd->d_name, &mystat)) == 0)
+		{
+			ft_putstr(sd->d_name);  //test
+			ft_putchar('\n'); 
+			list->total += mystat.st_blocks;
+			// i++;
+		}
+		i++;
+	}
+	ft_putstr("total ");  //test
+	ft_putnbr(list->total);  //test
+	ft_putchar('\n');  //test
+	ft_putstr("number of files: ");  //test
+	ft_putnbr(i);  //test
+	ft_putchar('\n');  //test
+
+	// free(mystat);
+	closedir(dir);
 }
 
 void	check_file(char *n)
@@ -79,8 +139,8 @@ void	get_flags(t_opt *opts, char **av)
 				exit(1);
 			}
 		}
+		test_opts(opts);
 	}
-			// test_opts(opts);
 }
 
 int main(int ac, char **av)
@@ -88,6 +148,7 @@ int main(int ac, char **av)
 	int		i;
 	t_opt	opts;
 
+	// opts = (t_opt*)ft_memalloc(sizeof(t_opt));
 	i = 1;
 	if (ac == 1)
 		print_name();
