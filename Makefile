@@ -6,7 +6,7 @@
 #    By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 19:05:46 by azinnatu          #+#    #+#              #
-#    Updated: 2017/12/20 00:02:46 by azinnatu         ###   ########.fr        #
+#    Updated: 2017/12/20 21:47:59 by azinnatu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBS = $(LIBFT)
 
 HEADERS = ft_ls.h ./libft/includes/libft.h
 
-CFLAGS +=  -g
+CFLAGS += -g
 
 NAME = ft_ls
 
@@ -44,3 +44,5 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+	# -Wall -Wextra -Werror

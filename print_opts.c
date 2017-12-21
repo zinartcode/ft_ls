@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 23:59:26 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/13 01:13:14 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/20 23:12:33 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void print_l(t_file *list)
 		ft_putnbr(list->date_raw);
 		
 		ft_putchar(' ');
-		ft_putstr(list->name);
+		// ft_putstr(list->name);
 		ft_putchar('\n');	
 		// ft_putnbr(list->nfiles);
 }

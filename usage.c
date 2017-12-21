@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 19:51:45 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/19 16:43:28 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/20 23:13:18 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,10 @@ int usage(char **av)
     return 0;
 }
 
-void	getstats(struct stat *mystat, t_file *list, char *path)
+void	getstats(struct stat *mystat, t_file *list)
 
 {
-		struct	dirent *sd;
-		char *p;
 
-		p = path;
-
-		sd = NULL;
-		if ((stat(sd->d_name, mystat)) == 0)
-		{
 			list->permissions[0] = (S_ISDIR(mystat->st_mode)) ? 'd' : '-';
 			list->permissions[1] = (mystat->st_mode & S_IRUSR) ? 'r' : '-';
 			list->permissions[2] = (mystat->st_mode & S_IWUSR) ? 'w' : '-';
@@ -86,10 +79,17 @@ void	getstats(struct stat *mystat, t_file *list, char *path)
 			list->byte_size = (int)mystat->st_size;
 			list->block_size = (int)mystat->st_blocks;
 			list->date_raw = (int)mystat->st_mtimespec.tv_sec;
-			list->name = sd->d_name;
+			// list->name = sd->d_name;
+			// printf("my name: %s\n", list->username);  //tes
+			print_l(list);
+			// ft_putchar('\n');  //test
+			// return(*list);
+
+			// ft_putstr(list->name);
+			// ft_putchar('\n');
 			// list->date = mod_time(mystat->st_mtimespec.tv_sec);
 			// list->nfiles = i++;
-		}
-		print_l(list);
+		// }
+		
 
 }
