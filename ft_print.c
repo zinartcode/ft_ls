@@ -6,11 +6,17 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 15:38:20 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/12 23:00:53 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/20 18:45:50 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+void	print_file(t_opt *opts)
+{
+	ft_putstr(opts->path);
+	ft_putchar('\n');
+}
 
 void	print_name()
 {
@@ -34,6 +40,7 @@ void	print_name()
 	}
 	closedir (dir);
 }
+
 
 void	print_time(struct timespec ts)
 {

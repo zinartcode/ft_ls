@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 16:48:17 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/19 16:40:28 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/20 21:47:06 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	read_files(char *path, t_file *list, t_opt *opts)
 			continue;
 		if (!(n_list = (t_file *)malloc(sizeof(t_file))))
 			ft_putstr("read_files: failed to malloc n_file.");
-		getstats(&mystat, n_list, opts->path);
+		getstats(&mystat, n_list);
 		n_list->name = ent->d_name;
 		 ft_putstr(ent->d_name);  //test
 		 ft_putchar('\n');  //test

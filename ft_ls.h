@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 16:33:16 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/20 00:01:50 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/20 23:13:24 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct		s_file
 }					t_file;
 
 int					main(int ac, char **av);
+void				print_file(t_opt *opts);
 void				print_name();
 void				print_time(struct timespec ts);
 void				print_user_group(struct stat mystat);
@@ -90,7 +91,7 @@ void				check_file(char *n);
 void				check_arg(t_opt *opts, char **av);
 void				process_args(t_opt *opts, t_file *list, DIR *dir);
 void				read_files(char *path, t_file *list, t_opt *opts);
-void				getstats(struct stat *mystat, t_file *list, char *path);
+void				getstats(struct stat *mystat, t_file *list);
 char				*ft_new_path(char *original, char *name);
 
 #endif
