@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 16:33:16 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/20 23:13:24 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/26 23:54:05 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,6 @@
 #include <time.h>
 #include <fcntl.h>
 #include <limits.h>
-
-// typedef struct		s_file
-// {
-// 	int				sum;
-// 	char			*name;
-// 	struct stat		mystat;
-// 	struct s_file	*next;
-// 	struct dirent	*sd;
-// }					t_file;
 
 typedef struct		s_data
 {
@@ -63,7 +54,7 @@ typedef struct		s_file
 	char			*groupname;
 	int				byte_size;
 	int				block_size;
-	int				date_raw;
+	time_t			date_raw;
 	int				total;
 	t_list			*sub_dirs;
 	char			*name;
@@ -72,17 +63,22 @@ typedef struct		s_file
 
 int					main(int ac, char **av);
 void				print_file(t_opt *opts);
-void				print_name();
-void				print_time(struct timespec ts);
+void				print_name(t_file *list);
+void				print_time(time_t *date);
 void				print_user_group(struct stat mystat);
 void				print_permissions(mode_t mode);
 void				print_filetype(mode_t mode);
 void 				print_l(t_file *list);
 void				total_size(void);
 void				quicksort(char **tab, int size);
-void	  			sort_list(t_list *lst);
+// void	  			sort_list(t_list *lst);
+void				sort_files(t_opt *opts, t_file *list, t_file **file);
+void				sort_ar(t_file **list, int s);
+void				sort_ar_rev(t_file **list, int s);
+void				sort_date(t_file **list, int s);
+void				sort_date_rev(t_file **list, int s);
 int					cmp(int a, int b);
-int					sort_alph(struct dirent *tab, unsigned int size);
+// int					sort_alph(struct dirent *tab, unsigned int size);
 int					usage(char **av);
 char				*mod_time(time_t mtime);
 void				get_flags(t_opt *opts, char **av);
@@ -90,6 +86,7 @@ void				test_opts(t_opt *opts);
 void				check_file(char *n);
 void				check_arg(t_opt *opts, char **av);
 void				process_args(t_opt *opts, t_file *list, DIR *dir);
+void				process_args2(t_opt *opts, t_file *list, DIR *dir);
 void				read_files(char *path, t_file *list, t_opt *opts);
 void				getstats(struct stat *mystat, t_file *list);
 char				*ft_new_path(char *original, char *name);
