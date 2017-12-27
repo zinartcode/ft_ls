@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 15:38:20 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/20 18:45:50 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/26 23:57:41 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,43 +18,43 @@ void	print_file(t_opt *opts)
 	ft_putchar('\n');
 }
 
-void	print_name()
-{
-	DIR	*dir;
-	struct dirent *sd;
+// void	print_name()
+// {
+// 	DIR	*dir;
+// 	struct dirent *sd;
 
-	dir = opendir(".");
-	if(dir == NULL)
-	{
-		ft_putstr("Error");
-		exit(1);
-	}
-	while((sd = readdir(dir)) != NULL)
-	{
-		if (sd->d_name[0] != '.' && sd->d_name[ft_strlen(sd->d_name)-1] != '~') 
-		{
-			ft_putstr(sd->d_name);
-			ft_putchar('\n');
+// 	dir = opendir(".");
+// 	if(dir == NULL)
+// 	{
+// 		ft_putstr("Error");
+// 		exit(1);
+// 	}
+// 	while((sd = readdir(dir)) != NULL)
+// 	{
+// 		if (sd->d_name[0] != '.' && sd->d_name[ft_strlen(sd->d_name)-1] != '~') 
+// 		{
+// 			ft_putstr(sd->d_name);
+// 			ft_putchar('\n');
 
-		}
-	}
-	closedir (dir);
-}
+// 		}
+// 	}
+// 	closedir (dir);
+// }
 
 
-void	print_time(struct timespec ts)
+void	print_time(time_t *date)
 {
 	time_t	curr_time;
 	char	*f_ctime;
 	char	*f_mtime;
 
-	time(&curr_time);
+	curr_time = time(NULL);
 	f_ctime = ctime(&curr_time);
-	f_mtime = ctime(&ts.tv_sec);
+	f_mtime = ctime(date);
 
 	ft_putnstr(&f_mtime[4], 7);
 
-	if (curr_time - ts.tv_sec  > 15780000)
+	if (curr_time - *date  > 15780000)
 		ft_putnstr(&f_mtime[19], 5);
 	else
 		ft_putnstr(&f_mtime[11], 5);

@@ -6,62 +6,130 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 21:19:09 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/13 01:20:21 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/27 00:41:29 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void		quicksort(char **tab, int size)
+void	sort_files(t_opt *opts, t_file *list, t_file **file)
 {
-	char		*pivot;
-	char		*temp;
-	int			lower;
-	int			upper;
+	int	i;
 
-	if (size < 2)
-		return ;
-	lower = 0;
-	upper = size - 1;
-	pivot = tab[upper];
-	while (lower < upper)
+	i = 0;
+	sort_ar(file, list->nfiles);
+	if(opts->is_lower_r == 1 && opts->is_t == 0)
+		sort_ar_rev(file, list->nfiles);
+	if(opts->is_t == 1)
+		sort_date(file, list->nfiles);
+	if(opts->is_t == 1 && opts->is_lower_r == 1)
+		sort_date_rev(file, list->nfiles);
+	if(opts->is_l == 1)
 	{
-		while (ft_strcmp(tab[lower], pivot) < 0)
-			lower++;
-		while (ft_strcmp(tab[upper], pivot) > 0)
-			upper--;
-		temp = tab[lower];
-		tab[lower] = tab[upper];
-		tab[upper] = temp;
+		ft_putstr("total ");
+		ft_putnbr(list->total);
+		ft_putchar('\n');
+		while (i < list->nfiles)
+		{
+		print_l(file[i]);
+		i++;
+		}
 	}
-	quicksort(tab, lower);
-	quicksort(&tab[lower + 1], size - lower - 1);
+	if(opts->is_l == 0)
+	{
+		while (i < list->nfiles)
+		{
+		print_name(file[i]);
+		i++;
+		}
+	}
 }
 
-void  sort_list(t_list *lst)
+void	sort_ar(t_file **list, int s)
 {
-    int     swap;
-    t_list  *tmp;
-    int data_tmp;
+    int j;
+    int i;
+    t_file *temp;
 
-    swap = 1;
-    // if (lst == 0)
-    //     exit;
-    while (swap)
+    i = 1;
+    j = 0;
+    while(i < s)
     {
-        swap = 0;
-        tmp = lst;
-        while (tmp->next)
+        j = i - 1;
+        while( j >= 0 && ft_strcmp( list[j+1]->name, list[j]->name ) < 0 )
         {
-            if (tmp->data >= tmp->next->data)
-            {
-                data_tmp = tmp->data;
-                tmp->data = tmp->next->data;
-                tmp->next->data = data_tmp;
-                swap = 1;
-            }
-            tmp = tmp->next;
+            temp =  list[j + 1];
+            list[j+1] = list[j];
+            list[j] = temp;
+            j--;
         }
+        i++;
+    }
+}
+
+void	sort_ar_rev(t_file **list, int s)
+{
+    int j;
+    int i;
+    t_file *temp;
+
+    i = 1;
+    j = 0;
+    while(i < s)
+    {
+        j = i - 1;
+        while( j >= 0 && ft_strcmp( list[j]->name, list[j + 1]->name ) < 0 )
+        {
+            temp =  list[j + 1];
+            list[j+1] = list[j];
+            list[j] = temp;
+            j--;
+        }
+        i++;
+    }
+}
+
+void	sort_date(t_file **list, int s)
+{
+    int j;
+    int i;
+    t_file *temp;
+
+    i = 1;
+    j = 0;
+    while(i < s)
+    {
+        j = i - 1;
+        while( j >= 0 && list[j+1]->date_raw > list[j]->date_raw)
+        {
+            temp =  list[j + 1];
+            list[j+1] = list[j];
+            list[j] = temp;
+            j--;
+        }
+        i++;
+    }
+}
+
+void	sort_date_rev(t_file **list, int s)
+{
+    int j;
+    int i;
+    t_file *temp;
+
+    i = 1;
+    j = 0;
+    while(i < s)
+    {
+        j = i - 1;
+        while( j >= 0 && list[j+1]->date_raw > list[j]->date_raw)
+        {
+            temp =  list[j + 1];
+            list[j+1] = list[j];
+            list[j] = temp;
+            j--;
+        }
+        i++;
     }
 }
 
