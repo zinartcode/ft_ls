@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 15:46:29 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/20 17:37:30 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/27 00:37:58 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@ int main(int ac, char **av)
 {
 	int		i;
 	t_opt	opts;
+	char	*cur;
 
 	// opts = (t_opt*)ft_memalloc(sizeof(t_opt));
 	opts.path = ".";
 	i = 1;
 	if (ac == 1)
-		print_name();
+	{
+		cur = ".";
+		check_arg(&opts, &cur);
+	}
 	if (ac >= 2)
 	{
 		while(av[i] != '\0')
