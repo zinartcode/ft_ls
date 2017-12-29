@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 23:54:45 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/27 00:41:51 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/29 02:26:04 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	get_flags(t_opt *opts, char **av)
 	size_t			i;
 
 	i = ft_strlen(*av);
-	// opts->path = ".";
 	if (av[0][0] == '-' && av[0][1] != '\0')
 	{
 		while (--i >= 1)
@@ -36,12 +35,12 @@ void	get_flags(t_opt *opts, char **av)
 			{
 				ft_putstr("ft_ls: illegal option -- ");
 				ft_putchar(av[0][i]);
-				ft_putstr("\nusage: ft_ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
+				ft_putstr("\nusage: ft_ls [-ABCFGHLOPRSTUW");
+				ft_putstr("abcdefghiklmnopqrstuwx1] [file ...]\n");
 				exit(1);
 			}
 		}
 	}
-	// test_opts(opts);
 }
 
 void	process_args(t_opt *opts, t_file *list, DIR *dir)
@@ -55,7 +54,10 @@ void	process_args(t_opt *opts, t_file *list, DIR *dir)
 	while ((sd = readdir(dir)) != NULL)
 	{
 		if (opts->is_a == 0 && sd->d_name[0] == '.')
+		{
+			p = opts->path;
 			break;
+		}
 		else
 		p = ft_new_path(opts->path, sd->d_name);
 		if ((stat(p, &mystat)) == 0)
@@ -63,6 +65,8 @@ void	process_args(t_opt *opts, t_file *list, DIR *dir)
 			list->nfiles++;
 	}
 		closedir(dir);
+		// test_opts(opts);
+		// free(p);
 		process_args2(opts, list, dir);
 }
 
@@ -87,10 +91,17 @@ void	process_args2(t_opt *opts, t_file *list, DIR *dir)
 			file[i]->name = sd->d_name;
 		}
 		i++;
-		free(p);
+		// free(p);
 	}
 	closedir(dir);
 	sort_files(opts, list, file);
+	// while (i != 0)
+	// {
+	// 	free(file[i]);
+	// 	i--;
+	// }
+	// free(file);
+	// free(list);
 }
 
 void check_arg(t_opt *opts, char **av)
@@ -102,7 +113,10 @@ void check_arg(t_opt *opts, char **av)
 	list = ft_memalloc(sizeof(t_file));
 	if (av[0][0] != '-')
 	{
+		// if (strcmp(opts->path, ".") != 0)
 		opts->path = *av;
+	// else
+		// printf("my dir is: %s\n", opts->path);
 		dir = opendir(opts->path);
 		if (stat(opts->path, &mystat) == 0 && S_ISDIR(mystat.st_mode))
 			process_args(opts, list, dir);
