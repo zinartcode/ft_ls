@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 15:38:20 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/26 23:57:41 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/27 20:12:50 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,6 @@ void	print_file(t_opt *opts)
 	ft_putstr(opts->path);
 	ft_putchar('\n');
 }
-
-// void	print_name()
-// {
-// 	DIR	*dir;
-// 	struct dirent *sd;
-
-// 	dir = opendir(".");
-// 	if(dir == NULL)
-// 	{
-// 		ft_putstr("Error");
-// 		exit(1);
-// 	}
-// 	while((sd = readdir(dir)) != NULL)
-// 	{
-// 		if (sd->d_name[0] != '.' && sd->d_name[ft_strlen(sd->d_name)-1] != '~') 
-// 		{
-// 			ft_putstr(sd->d_name);
-// 			ft_putchar('\n');
-
-// 		}
-// 	}
-// 	closedir (dir);
-// }
-
 
 void	print_time(time_t *date)
 {

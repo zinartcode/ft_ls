@@ -6,57 +6,11 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 19:51:45 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/21 00:41:19 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/29 02:14:36 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-int usage(char **av)
-{
-	DIR	*dir;
-	struct	dirent *sd;
-	struct	stat mystat;
-	t_file *list;
-	 int	i;
-
-	 i = 0;
-	 list = ft_memalloc(sizeof(t_file));
-	 ft_putstr("my av: ");
-	 ft_putstr(*av);  //av from main.c
-	 ft_putchar('\n');
-
-	dir = opendir(".");
-	if(dir == NULL)
-	{
-		ft_putstr("Error");
-		exit(1);
-	}
-
-	while((sd = readdir(dir)) != NULL)
-	{
-		if ((stat(sd->d_name, &mystat)) == 0)
-		{
-			list->total +=mystat.st_blocks;
-			i++;
-		}
-	}
-	ft_putstr("total ");
-	ft_putnbr(list->total);
-	ft_putchar('\n');
-	ft_putnbr(i);
-	ft_putchar('\n');
-
-		dir = opendir(".");
-	if(dir == NULL)
-	{
-		ft_putstr("Error");
-		exit(1);
-	}
-		closedir(dir);
-
-    return 0;
-}
 
 void	getstats(struct stat *mystat, t_file *list)
 
@@ -79,8 +33,82 @@ void	getstats(struct stat *mystat, t_file *list)
 			list->byte_size = (int)mystat->st_size;
 			list->block_size = (int)mystat->st_blocks;
 			list->date_raw = (int)mystat->st_mtimespec.tv_sec;
-
-			// list->date = mod_time(mystat->st_mtimespec.tv_sec);
-		
-
 }
+
+void	sort_files(t_opt *opts, t_file *list, t_file **file)
+{
+	int	i;
+
+	i = 0;
+	sort_ar(file, list->nfiles);
+	if (opts->is_lower_r == 1 && opts->is_t == 0)
+		sort_ar_rev(file, list->nfiles);
+	if (opts->is_t == 1)
+		sort_date(file, list->nfiles);
+	if (opts->is_t == 1 && opts->is_lower_r == 1)
+		sort_date_rev(file, list->nfiles);
+	if (opts->is_l == 0)
+	{
+		if (opts->is_upper_r == 1)
+		print_total(opts, list);
+		while (i < list->nfiles)
+		{
+		print_name(file[i]);
+		i++;
+		}
+		i = 0;
+	}
+	if (opts->is_l == 1 || opts->is_upper_r == 1)
+	process_opts(opts, list, file);
+}
+
+void	print_total(t_opt *opts, t_file *list)
+{
+	if (opts->subdir == 1)
+	{
+		ft_putchar('\n');
+		ft_putstr(opts->path);
+		ft_putchar(':');
+		ft_putchar('\n');
+		opts->subdir = 0;
+	}
+	if (opts->is_l == 1)
+	{
+		ft_putstr("total ");
+		ft_putnbr(list->total);
+		ft_putchar('\n');
+	}
+}
+
+void	process_opts(t_opt *opts, t_file *list, t_file **file)
+{
+	int	i;
+	DIR *dir;
+
+	i = 0;
+	if (opts->is_l == 1)
+	{
+		print_total(opts, list);
+		while (i < list->nfiles)
+		{
+		print_l(file[i]);
+		i++;
+		}
+	}
+	if (opts->is_upper_r == 1)
+	{
+		i = 0;
+		while (i < list->nfiles)
+		{
+			if (file[i]->permissions[0] == 'd' && file[i]->name[0] != '.')
+			{
+				opts->path = ft_new_path(opts->path, file[i]->name);
+				opts->subdir = 1;
+				process_args(opts, *file, dir);
+				// printf("this is dir: %s\n", file[i]->name);
+			}
+			i++;
+		}
+	}
+}
+
