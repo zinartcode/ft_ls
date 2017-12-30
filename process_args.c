@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 23:54:45 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/29 22:36:13 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/29 23:25:50 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,10 +137,6 @@ void check_arg(t_opt *opts, char **av)
 	}
 }
 
-void	check_file(char *n)
-{
-	n = NULL;
-}
 
 char	*ft_new_path(char *original, char *name)
 {

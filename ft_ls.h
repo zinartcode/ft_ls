@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 16:33:16 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/29 22:18:17 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/29 23:26:00 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int					cmp(int a, int b);
 char				*mod_time(time_t mtime);
 void				get_flags(t_opt *opts, char **av);
 void				test_opts(t_opt *opts);
-void				check_file(char *n);
 void				check_arg(t_opt *opts, char **av);
 void				process_opts(t_opt *opts, t_file *list, t_file **file);
 void				process_args(t_opt *opts, t_file *list, DIR *dir);
