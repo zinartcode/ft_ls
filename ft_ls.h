@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 16:33:16 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/29 01:40:07 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/29 22:18:17 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void				sort_ar(t_file **list, int s);
 void				sort_ar_rev(t_file **list, int s);
 void				sort_date(t_file **list, int s);
 void				sort_date_rev(t_file **list, int s);
+void				clear_file(t_file *file);
 int					cmp(int a, int b);
 char				*mod_time(time_t mtime);
 void				get_flags(t_opt *opts, char **av);
