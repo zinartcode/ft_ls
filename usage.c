@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 19:51:45 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/29 02:14:36 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/29 23:10:50 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,11 @@ void	process_opts(t_opt *opts, t_file *list, t_file **file)
 {
 	int	i;
 	DIR *dir;
+	char *p;
 
+	p = NULL;
 	i = 0;
+	dir = NULL;
 	if (opts->is_l == 1)
 	{
 		print_total(opts, list);
@@ -102,11 +105,15 @@ void	process_opts(t_opt *opts, t_file *list, t_file **file)
 		{
 			if (file[i]->permissions[0] == 'd' && file[i]->name[0] != '.')
 			{
+				p = opts->path;   //need to retun correct opts->path after recursion
 				opts->path = ft_new_path(opts->path, file[i]->name);
 				opts->subdir = 1;
-				process_args(opts, *file, dir);
+				// clear_file(file[i]);
+				process_args(opts, list, dir);
 				// printf("this is dir: %s\n", file[i]->name);
 			}
+			opts->path = p;
+			// clear_file(file[i]);
 			i++;
 		}
 	}

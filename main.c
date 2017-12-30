@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 15:46:29 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/29 00:57:03 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/29 22:20:03 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,23 @@ int main(int ac, char **av)
 			check_arg(&opts, &cur);
 	}
 	return (0);
+}
+
+void	clear_file(t_file *file)
+{
+	file->nfiles = 0;
+	file->path = NULL;
+	ft_memset(file->permissions, 0, 11);
+	file->nlinks = 0;
+	file->username = NULL;
+	file->groupname = NULL;
+	file->byte_size = 0;
+	file->block_size = 0;
+	file->date_raw = 0;
+	file->total = 0;
+	file->sub_dirs = NULL;
+	file->name = NULL;
+	file->date = 0;
 }
 
 void	test_opts(t_opt *opts)  // don't forget to delete ! ! !

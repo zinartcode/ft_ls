@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 23:54:45 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/29 02:26:04 by azinnatu         ###   ########.fr       */
+/*   Updated: 2017/12/29 22:36:13 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	process_args(t_opt *opts, t_file *list, DIR *dir)
 	char	*p;
 
 	list->nfiles = 0;
+	list->total = 0;
 	dir  = opendir(opts->path);
 	while ((sd = readdir(dir)) != NULL)
 	{
