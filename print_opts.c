@@ -20,9 +20,6 @@ void print_name(t_file *list)
 
 void print_l(t_file *list)
 {
-	// char	*symlink;
-	char	buff[512];
-	// int		x;
 
 	ft_putstr(list->permissions);
 	ft_putstr("  ");
@@ -39,41 +36,29 @@ void print_l(t_file *list)
 	ft_putstr(list->name);
 	if (list->permissions[0] == 'l')
 	{
-		// ft_putstr(" -> ");
-
-			readlink(list->name, buff, 512);
-			// buff[x] = '\0';
-			ft_putstr(" -> ");
-			ft_putstr(list->name);
-		// symlink = readlink(list);
-	// 	if (symlink != NULL)
-	// 	{
-	// 		printf("%s -> %s", list->name, symlink);
-	// 		free(symlink);
-	// 	}
+		// printf("\nmy lnk: %s\n", list->name);
+		ft_print_lnk(list);
 	}
 	// else
 	ft_putchar('\n');	
 }
 
-char	*get_symlink_address(t_file *list)
+void	ft_print_lnk(t_file *list)
 {
-	char	*symlink;
-	char	*fullpath;
+	char	*lnkcontent;
+	int		ret;
+	int		size;
 
-	if ((fullpath = ft_strjoin(list->path, list->name)) == NULL)
-		return (NULL);
-	if ((symlink = ft_memalloc(PATH_MAX)) == NULL)
+	if (list->permissions[0] == 'l')
 	{
-		free(fullpath);
-		return (NULL);
+		size = 1024;
+		if ((lnkcontent = (char *)ft_memalloc(sizeof(char) * (size))) == NULL)
+			ft_putstr("error");
+		// printf("%s\n", list->path);
+		ret = readlink(list->path, lnkcontent, size);
+		lnkcontent[ret] = '\0';
+		ft_putstr(" -> ");
+		ft_putstr(lnkcontent);
+		ft_bzero(lnkcontent, size);
 	}
-	if ((readlink(fullpath, symlink, PATH_MAX)) == -1)
-	{
-		free(symlink);
-		free(fullpath);
-		return (NULL);
-	}
-	free(fullpath);
-	return (symlink);
 }
