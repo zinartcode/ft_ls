@@ -86,7 +86,7 @@ void	process_args2(t_opt *opts, t_file *list, DIR *dir)
 		file[i] = ft_memalloc(sizeof(t_file));
 		if (opts->is_a == 0 && sd->d_name[0] == '.')
 		{
-			p = NULL;
+			p = opts->path;
 			continue;
 		}
 		else
@@ -94,10 +94,14 @@ void	process_args2(t_opt *opts, t_file *list, DIR *dir)
 		if ((lstat(p, &mystat)) == 0)
 		{
 			file[i]->name = sd->d_name;
+			// file[i]->path = ft_strcpy(file[i]->path, p);
+			file[i]->path = p;
+			// printf("my path is: %s\n", file[i]->path);
 			getstats(&mystat, file[i]);
 		}
 		i++;
 		free(p);
+		// free(file[i]->path);
 	}
 	closedir(dir);
 	sort_files(opts, list, file);

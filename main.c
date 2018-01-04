@@ -38,11 +38,11 @@ int main(int ac, char **av)
 		}
 		i++;
 		}
-		if (flag == 0)
-			check_arg(&opts, &cur);
-		if (ac == 1)
-			check_arg(&opts, &cur);
 	}
+	if (flag == 0)
+		check_arg(&opts, &cur);
+	else if (ac == 1)
+		check_arg(&opts, &cur);
 	return (0);
 }
 
