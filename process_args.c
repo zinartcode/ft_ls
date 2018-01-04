@@ -56,18 +56,17 @@ void	process_args(t_opt *opts, t_file *list, DIR *dir)
 	{
 		if (opts->is_a == 0 && sd->d_name[0] == '.')
 		{
-			p = opts->path;
-			break;
+			p = NULL;
+			continue;
 		}
 		else
 		p = ft_new_path(opts->path, sd->d_name);
-		if ((stat(p, &mystat)) == 0)
+		if ((lstat(p, &mystat)) == 0)
 			list->total += mystat.st_blocks;
 			list->nfiles++;
 	}
 		closedir(dir);
-		// test_opts(opts);
-		// free(p);
+		free(p);
 		process_args2(opts, list, dir);
 }
 
@@ -85,14 +84,20 @@ void	process_args2(t_opt *opts, t_file *list, DIR *dir)
 	while ((sd = readdir(dir)) != NULL)
 	{
 		file[i] = ft_memalloc(sizeof(t_file));
-		p = ft_new_path(opts->path, sd->d_name);
-		if ((stat(p, &mystat)) == 0)
+		if (opts->is_a == 0 && sd->d_name[0] == '.')
 		{
-			getstats(&mystat, file[i]);
+			p = NULL;
+			continue;
+		}
+		else
+		p = ft_new_path(opts->path, sd->d_name);
+		if ((lstat(p, &mystat)) == 0)
+		{
 			file[i]->name = sd->d_name;
+			getstats(&mystat, file[i]);
 		}
 		i++;
-		// free(p);
+		free(p);
 	}
 	closedir(dir);
 	sort_files(opts, list, file);
