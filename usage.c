@@ -12,11 +12,29 @@
 
 #include "ft_ls.h"
 
-void	getstats(struct stat *mystat, t_file *list)
-
+void	get_type(struct stat *mystat, t_file *list)
 {
+	if (S_ISREG(mystat->st_mode))
+		list->permissions[0] = '-';
+	else if (S_ISLNK(mystat->st_mode))
+		list->permissions[0] = 'l';
+	else if (S_ISDIR(mystat->st_mode))
+		list->permissions[0] = 'd';
+	else if (S_ISCHR(mystat->st_mode))
+		list->permissions[0] = 'c';
+	else if (S_ISBLK(mystat->st_mode))
+		list->permissions[0] = 'b';
+	else if (S_ISFIFO(mystat->st_mode))
+		list->permissions[0] = 'p';
+	else if (S_ISSOCK(mystat->st_mode))
+		list->permissions[0] = 's';
+	else
+		list->permissions[0] = '?';
+}
 
-			list->permissions[0] = (S_ISDIR(mystat->st_mode)) ? 'd' : '-';
+void	getstats(struct stat *mystat, t_file *list)
+{
+	get_type(mystat, list);
 			list->permissions[1] = (mystat->st_mode & S_IRUSR) ? 'r' : '-';
 			list->permissions[2] = (mystat->st_mode & S_IWUSR) ? 'w' : '-';
 			list->permissions[3] = (mystat->st_mode & S_IXUSR) ? 'x' : '-';
@@ -72,6 +90,7 @@ void	print_total(t_opt *opts, t_file *list)
 		ft_putchar('\n');
 		opts->subdir = 0;
 	}
+	opts->subdir = 0; //check if needed
 	if (opts->is_l == 1)
 	{
 		ft_putstr("total ");

@@ -12,6 +12,23 @@
 
 #include "ft_ls.h"
 
+
+
+// void	print_symlink(t_file *list, char *path)
+// {
+// 	char	*symlink;
+
+// 	if (S_ISLNK(list->st.st_mode))
+// 	{
+// 		symlink = get_symlink_address(path, list);
+// 		if (symlink != NULL)
+// 		{
+// 			printf(1, " -> %s", symlink);
+// 			free(symlink);
+// 		}
+// 	}
+// }
+
 // void		print_permissions(mode_t mode)
 // {
 // 	ft_putchar((mode & S_IRUSR) ? 'r' : '-');

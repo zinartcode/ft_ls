@@ -88,6 +88,8 @@ void				process_args(t_opt *opts, t_file *list, DIR *dir);
 void				process_args2(t_opt *opts, t_file *list, DIR *dir);
 void				read_files(char *path, t_file *list, t_opt *opts);
 void				getstats(struct stat *mystat, t_file *list);
+void				get_type(struct stat *mystat, t_file *list);
 char				*ft_new_path(char *original, char *name);
+char				*get_symlink_address(t_file *list);
 
 #endif
