@@ -10,12 +10,12 @@
 #                                                                              #
 # **************************************************************************** #
 
-OBJS =	main.o 					\
-		permissions.o 			\
-		usage.o					\
-		sort.o					\
-		print_opts.o			\
-		process_args.o			\
+OBJS =	main.o \
+		permissions.o \
+		usage.o \
+		sort.o \
+		print_opts.o \
+		process_args.o \
 		ft_print.o				
 
 LIBFT= libft/libft.a
