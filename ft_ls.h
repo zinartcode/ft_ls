@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-#define FT_LS_H
-#include "libft/includes/libft.h"
+#ifndef	FT_LS_H
+#define	FT_LS_H
+#include	"libft/includes/libft.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -66,12 +66,10 @@ int					main(int ac, char **av);
 void				print_file(t_opt *opts);
 void				print_name();
 void				print_time(time_t *date);
-void				print_user_group(struct stat mystat);
 void				print_permissions(mode_t mode);
 void				print_filetype(mode_t mode);
-void 				print_l(t_file *list);
+void				print_l(t_file *list);
 void				print_total(t_opt *opts, t_file *list);
-void				total_size(void);
 void				sort_files(t_opt *opts, t_file *list, t_file **file);
 void				sort_ar(t_file **list, int s);
 void				sort_ar_rev(t_file **list, int s);
@@ -82,9 +80,9 @@ int					cmp(int a, int b);
 char				*mod_time(time_t mtime);
 void				get_flags(t_opt *opts, char **av);
 void				test_opts(t_opt *opts);
-void				check_arg(t_opt *opts, char **av);
+void				check_arg(t_opt *opts, char *av);
 void				process_opts(t_opt *opts, t_file *list, t_file **file);
-void				process_args(t_opt *opts, t_file *list, DIR *dir);
+void				process_args(t_opt *opts, DIR *dir);
 void				process_args2(t_opt *opts, t_file *list, DIR *dir);
 void				read_files(char *path, t_file *list, t_opt *opts);
 void				getstats(struct stat *mystat, t_file *list);

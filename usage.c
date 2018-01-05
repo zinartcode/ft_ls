@@ -102,12 +102,10 @@ void	print_total(t_opt *opts, t_file *list)
 void	process_opts(t_opt *opts, t_file *list, t_file **file)
 {
 	int	i;
-	DIR *dir;
 	char *p;
 
 	p = NULL;
 	i = 0;
-	dir = NULL;
 	if (opts->is_l == 1)
 	{
 		print_total(opts, list);
@@ -117,6 +115,7 @@ void	process_opts(t_opt *opts, t_file *list, t_file **file)
 		i++;
 		}
 	}
+
 	if (opts->is_upper_r == 1)
 	{
 		i = 0;
@@ -127,15 +126,26 @@ void	process_opts(t_opt *opts, t_file *list, t_file **file)
 				p = ft_strcpy(p, opts->path);   //need to retun correct opts->path after recursion
 				opts->path = ft_new_path(opts->path, file[i]->name);
 				opts->subdir = 1;
+				free(p);
+				// check_arg(opts, opts->path);
+				// break;
 				// clear_file(file[i]);
-				process_args(opts, list, dir);
+				// process_args(opts, dir);
 				// printf("this is dir: %s\n", file[i]->name);
 			}
 			opts->path = ft_strcpy(opts->path, p);
-			// clear_file(file[i]);
-			free(p);
+			clear_file(file[i]);
+			// free(p);
 			i++;
 		}
+		while (i >= 0)
+		{
+			free(file[--i]);
+		}
+		free(file);
+		if (opts->subdir == 1)
+			check_arg(opts, opts->path);
+			free(list);
 	}
 }
 
