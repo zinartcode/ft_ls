@@ -43,14 +43,15 @@ void	get_flags(t_opt *opts, char **av)
 	}
 }
 
-void	process_args(t_opt *opts, t_file *list, DIR *dir)
+void	process_args(t_opt *opts, DIR *dir)
 {
 	struct stat mystat;
 	struct dirent *sd;
 	char	*p;
+	t_file *list;
 
-	list->nfiles = 0;
-	list->total = 0;
+	list = ft_memalloc(sizeof(t_file));
+	clear_file(list);
 	dir  = opendir(opts->path);
 	while ((sd = readdir(dir)) != NULL)
 	{
@@ -62,12 +63,15 @@ void	process_args(t_opt *opts, t_file *list, DIR *dir)
 		else
 		p = ft_new_path(opts->path, sd->d_name);
 		if ((lstat(p, &mystat)) == 0)
+		{
 			list->total += mystat.st_blocks;
 			list->nfiles++;
+		}
+		free(p);
 	}
 		closedir(dir);
-		free(p);
 		process_args2(opts, list, dir);
+		free(list);
 }
 
 void	process_args2(t_opt *opts, t_file *list, DIR *dir)
@@ -99,37 +103,27 @@ void	process_args2(t_opt *opts, t_file *list, DIR *dir)
 			// printf("my path is: %s\n", file[i]->path);
 			getstats(&mystat, file[i]);
 		}
-		i++;
 		free(p);
-		// free(file[i]->path);
+		i++;
 	}
 	closedir(dir);
 	sort_files(opts, list, file);
-	// while (i != 0)
-	// {
-	// 	free(file[i]);
-	// 	i--;
-	// }
-	// free(file);
-	// free(list);
 }
 
-void check_arg(t_opt *opts, char **av)
+void check_arg(t_opt *opts, char *av)
 {
 	DIR	*dir;
 	struct stat mystat;
-	t_file *list;
 
-	list = ft_memalloc(sizeof(t_file));
-	if (av[0][0] != '-')
+	if (av[0] != '-')
 	{
 		// if (strcmp(opts->path, ".") != 0)
-		opts->path = *av;
+		opts->path = av;
 	// else
 		// printf("my dir is: %s\n", opts->path);
 		dir = opendir(opts->path);
 		if (stat(opts->path, &mystat) == 0 && S_ISDIR(mystat.st_mode))
-			process_args(opts, list, dir);
+			process_args(opts, dir);
 		else if (stat(opts->path, &mystat) == 0 && S_ISREG(mystat.st_mode))
 		{
 			print_file(opts);
@@ -138,7 +132,7 @@ void check_arg(t_opt *opts, char **av)
 		else
 		{
 			ft_putstr("ft_ls: ");  
-			ft_putstr(*av);  
+			ft_putstr(av);  
 			ft_putstr(": No such file or directory\n");
 			exit(1);
 		}
@@ -151,11 +145,16 @@ char	*ft_new_path(char *original, char *name)
 {
 	int		len;
 	char	*temp;
+	char 	*t;
 
 	len = ft_strlen(original);
 	if ((*original) && ((original)[len - 1] != '/'))
-		original = ft_strjoin(original, "/");
-		temp = ft_strjoin(original, name);
-		free(original);
+	{
+		t = ft_strjoin(original, "/");
+		temp = ft_strjoin(t, name);
+		free(t);
 		return(temp);
+	}
+	
+		return(ft_strjoin(original, name));
 }

@@ -12,7 +12,22 @@
 
 #include "ft_ls.h"
 
-
+// void	clear_list(t_file *list)
+// {
+// 	list.nfiles = 0;
+// 	list.path = NULL;
+// 	list.permissions = NULL;
+// 	list.nlinks = 0;
+// 	list.username = NULL;
+// 	list.groupname = NULL;
+// 	list.byte_size = 0;
+// 	list.block_size = 0;
+// 	list.date_raw = 0;
+// 	list.total 0;
+// 	list.sub_dirs = NULL;
+// 	list.name = NULL;
+// 	list.date = 0;
+// }
 
 // void	print_symlink(t_file *list, char *path)
 // {

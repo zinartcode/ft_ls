@@ -32,14 +32,10 @@ void print_l(t_file *list)
 	ft_putnbr(list->byte_size);
 	ft_putchar('	');
 	print_time(&list->date_raw);
-	ft_putchar('	');
+	ft_putchar(' ');
 	ft_putstr(list->name);
 	if (list->permissions[0] == 'l')
-	{
-		// printf("\nmy lnk: %s\n", list->name);
 		ft_print_lnk(list);
-	}
-	// else
 	ft_putchar('\n');	
 }
 
@@ -49,8 +45,6 @@ void	ft_print_lnk(t_file *list)
 	int		ret;
 	int		size;
 
-	if (list->permissions[0] == 'l')
-	{
 		size = 1024;
 		if ((lnkcontent = (char *)ft_memalloc(sizeof(char) * (size))) == NULL)
 			ft_putstr("error");
@@ -60,5 +54,4 @@ void	ft_print_lnk(t_file *list)
 		ft_putstr(" -> ");
 		ft_putstr(lnkcontent);
 		ft_bzero(lnkcontent, size);
-	}
 }

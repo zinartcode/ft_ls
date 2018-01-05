@@ -34,15 +34,16 @@ int main(int ac, char **av)
 		if (av[i][0] != '-')
 		{
 			flag  = 1;
-			check_arg(&opts, &av[i]);
+			check_arg(&opts, av[i]);
+			opts.subdir = 1;
 		}
 		i++;
 		}
 	}
 	if (flag == 0)
-		check_arg(&opts, &cur);
+		check_arg(&opts, cur);
 	else if (ac == 1)
-		check_arg(&opts, &cur);
+		check_arg(&opts, cur);
 	return (0);
 }
 

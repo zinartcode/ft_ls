@@ -35,57 +35,32 @@ void	print_time(time_t *date)
 	else
 		ft_putnstr(&f_mtime[11], 5);
 }
-// int	mod_time(int mt)
+
+// void	total_size(void)
 // {
-// 	time_t curr_time;
-// 	char	*f_mtime;
-// 	char	*mod_time;
+// 	DIR *dir;
+// 	struct	dirent *sd;
+// 	struct	stat mystat;
+// 	int	total;
 
-// 	time(&curr_time);
-// 	f_mtime = ctime(&f_mtime.tv_sec);
-// 	if (curr_time - mt  > 15780000)
-// 		mod_time = f_mtime[19], 5
+// 	total = 0;
+// 	dir = opendir(".");
+// 	if(dir == NULL)
+// 	{
+// 		ft_putstr("Error");
+// 		exit(1);
+// 	}
+// 	while((sd = readdir(dir)) != NULL)
+// 	{
+// 		if (sd->d_name[0] != '.' && sd->d_name[ft_strlen(sd->d_name)-1] != '~') //create func is_hidden(0:1)
+// 		{
+// 			if ((stat(sd->d_name, &mystat)) == 0)
+// 			{
+// 				total += mystat.st_blocks;
+// 			}
+// 		}
+// 	}
+// 	ft_putstr("total ");
+// 	ft_putnbr(total);
+// 	ft_putchar('\n');
 // }
-
-void	print_user_group(struct stat mystat)
-{
-	struct	passwd *pwd;  //for used-ID	
-	struct	group *grp;   //for group-ID
-
-	pwd = getpwuid(mystat.st_uid);
-	grp = getgrgid(mystat.st_gid);
-	ft_putstr(pwd->pw_name);
-	ft_putchar(' ');
-	ft_putchar(' ');
-	ft_putstr(grp->gr_name);
-
-}
-
-void	total_size(void)
-{
-	DIR *dir;
-	struct	dirent *sd;
-	struct	stat mystat;
-	int	total;
-
-	total = 0;
-	dir = opendir(".");
-	if(dir == NULL)
-	{
-		ft_putstr("Error");
-		exit(1);
-	}
-	while((sd = readdir(dir)) != NULL)
-	{
-		if (sd->d_name[0] != '.' && sd->d_name[ft_strlen(sd->d_name)-1] != '~') //create func is_hidden(0:1)
-		{
-			if ((stat(sd->d_name, &mystat)) == 0)
-			{
-				total += mystat.st_blocks;
-			}
-		}
-	}
-	ft_putstr("total ");
-	ft_putnbr(total);
-	ft_putchar('\n');
-}
