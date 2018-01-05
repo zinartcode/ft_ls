@@ -103,6 +103,7 @@ void	process_opts(t_opt *opts, t_file *list, t_file **file)
 {
 	int	i;
 	char *p;
+	char 	*a;
 
 	p = NULL;
 	i = 0;
@@ -123,9 +124,12 @@ void	process_opts(t_opt *opts, t_file *list, t_file **file)
 		{
 			if (file[i]->permissions[0] == 'd' && file[i]->name[0] != '.')
 			{
-				p = ft_strcpy(p, opts->path);   //need to retun correct opts->path after recursion
-				opts->path = ft_new_path(opts->path, file[i]->name);
+				p = ft_strdup(opts->path);   //need to retun correct opts->path after recursion
+				p = ft_new_path(opts->path, file[i]->name);
 				opts->subdir = 1;
+				a = opts->path;
+				check_arg(opts, p);
+				opts->path = a;
 				free(p);
 				// check_arg(opts, opts->path);
 				// break;
@@ -133,19 +137,19 @@ void	process_opts(t_opt *opts, t_file *list, t_file **file)
 				// process_args(opts, dir);
 				// printf("this is dir: %s\n", file[i]->name);
 			}
-			opts->path = ft_strcpy(opts->path, p);
+			// opts->path = ft_strcpy(opts->path, p);
 			clear_file(file[i]);
 			// free(p);
 			i++;
 		}
-		while (i >= 0)
-		{
-			free(file[--i]);
-		}
+		// while (i >= 0)
+		// {
+		// 	free(file[--i]);
+		// }
 		free(file);
-		if (opts->subdir == 1)
-			check_arg(opts, opts->path);
-			free(list);
+		// if (opts->subdir == 1)
+			// check_arg(opts, p);
+			// free(list);
 	}
 }
 

@@ -98,9 +98,7 @@ void	process_args2(t_opt *opts, t_file *list, DIR *dir)
 		if ((lstat(p, &mystat)) == 0)
 		{
 			file[i]->name = sd->d_name;
-			// file[i]->path = ft_strcpy(file[i]->path, p);
 			file[i]->path = p;
-			// printf("my path is: %s\n", file[i]->path);
 			getstats(&mystat, file[i]);
 		}
 		free(p);
@@ -117,10 +115,7 @@ void check_arg(t_opt *opts, char *av)
 
 	if (av[0] != '-')
 	{
-		// if (strcmp(opts->path, ".") != 0)
 		opts->path = av;
-	// else
-		// printf("my dir is: %s\n", opts->path);
 		dir = opendir(opts->path);
 		if (stat(opts->path, &mystat) == 0 && S_ISDIR(mystat.st_mode))
 			process_args(opts, dir);
