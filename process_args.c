@@ -52,7 +52,7 @@ void	process_args(t_opt *opts, DIR *dir)
 
 	list = ft_memalloc(sizeof(t_file));
 	clear_file(list);
-	dir  = opendir(opts->path);
+	// dir  = opendir(opts->path);
 	while ((sd = readdir(dir)) != NULL)
 	{
 		if (opts->is_a == 0 && sd->d_name[0] == '.')
@@ -69,7 +69,7 @@ void	process_args(t_opt *opts, DIR *dir)
 		}
 		free(p);
 	}
-		closedir(dir);
+		// closedir(dir);
 		process_args2(opts, list, dir);
 		free(list);
 }
@@ -116,13 +116,16 @@ void check_arg(t_opt *opts, char *av)
 	if (av[0] != '-')
 	{
 		opts->path = av;
-		dir = opendir(opts->path);
 		if (stat(opts->path, &mystat) == 0 && S_ISDIR(mystat.st_mode))
-			process_args(opts, dir);
-		else if (stat(opts->path, &mystat) == 0 && S_ISREG(mystat.st_mode))
 		{
+			dir = opendir(opts->path);
+			process_args(opts, dir);
+			closedir(dir);
+		}
+		else if (stat(opts->path, &mystat) == 0 && S_ISREG(mystat.st_mode))
+		{ 
 			print_file(opts);
-			exit(0);
+			// exit(0);
 		}
 		else
 		{
@@ -131,7 +134,6 @@ void check_arg(t_opt *opts, char *av)
 			ft_putstr(": No such file or directory\n");
 			exit(1);
 		}
-		closedir(dir);
 	}
 }
 

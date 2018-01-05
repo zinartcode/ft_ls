@@ -19,7 +19,6 @@ int main(int ac, char **av)
 	t_opt	opts;
 	char	*cur;
 
-	// opts = (t_opt*)ft_memalloc(sizeof(t_opt));
 	opts.path = ".";
 	opts.subdir = 0;
 	i = 1;
@@ -30,14 +29,15 @@ int main(int ac, char **av)
 		while(av[i] != '\0')
 		{
 			if (av[i][0] == '-' && av[i][1] != '\0')
-			get_flags(&opts, &av[i]);
-		if (av[i][0] != '-')
-		{
-			flag  = 1;
-			check_arg(&opts, av[i]);
-			opts.subdir = 1;
-		}
-		i++;
+				get_flags(&opts, &av[i]);
+			if (av[i][0] != '-')
+			{
+				opts.path = *av;
+				flag  = 1;
+				check_arg(&opts, av[i]);
+				opts.subdir = 1;
+			}
+			i++;
 		}
 	}
 	if (flag == 0)
@@ -62,16 +62,6 @@ void	clear_file(t_file *file)
 	file->sub_dirs = NULL;
 	file->name = NULL;
 	file->date = 0;
-}
-
-void	test_opts(t_opt *opts)  // don't forget to delete ! ! !
-{
-	printf("l is %d\n", opts->is_l);
-	printf("R is %d\n", opts->is_upper_r);
-	printf("r is %d\n", opts->is_lower_r);
-	printf("a is %d\n", opts->is_a);
-	printf("t is %d\n", opts->is_t);
-	printf("my dir: %s\n", opts->path);
 }
 
 // modify Makefile to compile GCC, remove debugging
