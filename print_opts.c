@@ -35,11 +35,11 @@ void print_l(t_file *list)
 	ft_putchar(' ');
 	ft_putstr(list->name);
 	if (list->permissions[0] == 'l')
-		ft_print_lnk(list);
+		print_lnk(list);
 	ft_putchar('\n');	
 }
 
-void	ft_print_lnk(t_file *list)
+void	print_lnk(t_file *list)
 {
 	char	*lnkcontent;
 	int		ret;
@@ -48,7 +48,6 @@ void	ft_print_lnk(t_file *list)
 		size = 1024;
 		if ((lnkcontent = (char *)ft_memalloc(sizeof(char) * (size))) == NULL)
 			ft_putstr("error");
-		// printf("%s\n", list->path);
 		ret = readlink(list->path, lnkcontent, size);
 		lnkcontent[ret] = '\0';
 		ft_putstr(" -> ");

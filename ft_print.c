@@ -36,31 +36,21 @@ void	print_time(time_t *date)
 		ft_putnstr(&f_mtime[11], 5);
 }
 
-// void	total_size(void)
-// {
-// 	DIR *dir;
-// 	struct	dirent *sd;
-// 	struct	stat mystat;
-// 	int	total;
-
-// 	total = 0;
-// 	dir = opendir(".");
-// 	if(dir == NULL)
-// 	{
-// 		ft_putstr("Error");
-// 		exit(1);
-// 	}
-// 	while((sd = readdir(dir)) != NULL)
-// 	{
-// 		if (sd->d_name[0] != '.' && sd->d_name[ft_strlen(sd->d_name)-1] != '~') //create func is_hidden(0:1)
-// 		{
-// 			if ((stat(sd->d_name, &mystat)) == 0)
-// 			{
-// 				total += mystat.st_blocks;
-// 			}
-// 		}
-// 	}
-// 	ft_putstr("total ");
-// 	ft_putnbr(total);
-// 	ft_putchar('\n');
-// }
+void	print_total(t_opt *opts, t_file *list)
+{
+	if (opts->subdir == 1)
+	{
+		ft_putchar('\n');
+		ft_putstr(opts->path);
+		ft_putchar(':');
+		ft_putchar('\n');
+		opts->subdir = 0;
+	}
+	opts->subdir = 0; //check if needed
+	if (opts->is_l == 1)
+	{
+		ft_putstr("total ");
+		ft_putnbr(list->total);
+		ft_putchar('\n');
+	}
+}
