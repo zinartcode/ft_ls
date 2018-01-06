@@ -101,4 +101,5 @@ void	clear_file(t_file *file)
 	file->date = 0;
 }
 
+// do process_args2 and process_opts and norme
 // modify Makefile to compile GCC, remove debugging

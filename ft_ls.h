@@ -63,7 +63,6 @@ typedef struct		s_file
 int					main(int ac, char **av);
 int					ok_to_recurse(char *path);
 void				intit_opts(t_opt *opts);
-void				print_file(t_opt *opts);
 void				print_name(t_file *list);
 void				print_time(time_t *date);
 void				print_l(t_file *list);

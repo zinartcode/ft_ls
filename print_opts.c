@@ -12,12 +12,6 @@
 
 #include "ft_ls.h"
 
-void print_name(t_file *list)
-{
-	ft_putstr(list->name);
-	ft_putchar('\n');	
-}
-
 void print_l(t_file *list)
 {
 
