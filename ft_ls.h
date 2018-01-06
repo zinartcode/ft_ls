@@ -48,6 +48,7 @@ typedef struct		s_opt
 typedef struct		s_file
 {
 	int				nfiles;
+	int				isdir;
 	char			*path;
 	char			permissions[11];
 	int				nlinks;

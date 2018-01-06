@@ -55,7 +55,7 @@ void	process_args(t_opt *opts, DIR *dir)
 	// dir  = opendir(opts->path);
 	while ((sd = readdir(dir)) != NULL)
 	{
-		if (opts->is_a == 0 && sd->d_name[0] == '.')
+		if(opts->is_a == 0 && sd->d_name[0] == '.')
 		{
 			p = NULL;
 			continue;
@@ -98,7 +98,7 @@ void	process_args2(t_opt *opts, t_file *list, DIR *dir)
 		if ((lstat(p, &mystat)) == 0)
 		{
 			file[i]->name = sd->d_name;
-			file[i]->path = p;
+			file[i]->path = ft_strdup(p);
 			getstats(&mystat, file[i]);
 		}
 		free(p);
