@@ -113,7 +113,7 @@ void	process_opts(t_opt *opts, t_file *list, t_file **file)
 				// printf("nfiles are: %d\n", list->nfiles);
 				// printf("i is: %d\n", i);
 				// printf("file name is: %s\n", file[i]->name);
-				printf("file path is: %s\n", file[i]->path);
+				// printf("file path is: %s\n", file[i]->path);
 				// printf("opts path is: %s\n", opts->path);
 				// p = ft_strdup(opts->path);   //need to retun correct opts->path after recursion
 				// p = ft_new_path(opts->path, file[i]->name);
