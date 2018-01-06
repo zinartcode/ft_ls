@@ -74,7 +74,8 @@ void	sort_files(t_opt *opts, t_file *list, t_file **file)
 		print_total(opts, list);
 		while (i < list->nfiles)
 		{
-		print_name(file[i]);
+			ft_putstr(list->path);
+			ft_putchar('\n');
 		i++;
 		}
 		i = 0;
