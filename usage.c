@@ -62,7 +62,7 @@ void	sort_files(t_opt *opts, t_file *list, t_file **file)
 
 	i = 0;
 	sort_ar(file, list->nfiles);
-	if (opts->is_lower_r == 1 && opts->is_t == 0)
+	if (opts->is_lower_r == 1)
 		sort_ar_rev(file, list->nfiles);
 	if (opts->is_t == 1)
 		sort_date(file, list->nfiles);
@@ -108,11 +108,12 @@ void	process_opts(t_opt *opts, t_file *list, t_file **file)
 		i = 0;
 		while (i < list->nfiles)
 		{
-			if (file[i]->isdir == 1 && file[i]->name[0] != '.')
+			if ((file[i]->isdir == 1) && (ok_to_recurse(file[i]->name) != 0))
 			{
 				// printf("nfiles are: %d\n", list->nfiles);
 				// printf("i is: %d\n", i);
-				// printf("file path is: %s\n", file[i]->path);
+				// printf("file name is: %s\n", file[i]->name);
+				printf("file path is: %s\n", file[i]->path);
 				// printf("opts path is: %s\n", opts->path);
 				// p = ft_strdup(opts->path);   //need to retun correct opts->path after recursion
 				// p = ft_new_path(opts->path, file[i]->name);
@@ -125,9 +126,19 @@ void	process_opts(t_opt *opts, t_file *list, t_file **file)
 
 			}
 			clear_file(file[i]);
+			free(file[i]);
 			i++;
 		}
 		// free(file);
 	}
+}
+
+int		ok_to_recurse(char *path)
+{
+	if (ft_strcmp(path, ".") == 0)
+		return (0);
+	if (ft_strcmp(path, "..") == 0)
+		return (0);
+	return (1);
 }
 
