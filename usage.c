@@ -19,7 +19,10 @@ void	get_type(struct stat *mystat, t_file *list)
 	else if (S_ISLNK(mystat->st_mode))
 		list->permissions[0] = 'l';
 	else if (S_ISDIR(mystat->st_mode))
+	{
+		list->isdir = 1;
 		list->permissions[0] = 'd';
+	}
 	else if (S_ISCHR(mystat->st_mode))
 		list->permissions[0] = 'c';
 	else if (S_ISBLK(mystat->st_mode))
@@ -83,10 +86,12 @@ void	sort_files(t_opt *opts, t_file *list, t_file **file)
 void	process_opts(t_opt *opts, t_file *list, t_file **file)
 {
 	int	i;
-	char *p;
-	char 	*a;
+	int	j;
+	// char *p;
+	// char 	*a;
 
-	p = NULL;
+	// p = NULL;
+	j = 0;
 	i = 0;
 	if (opts->is_l == 1)
 	{
@@ -103,22 +108,26 @@ void	process_opts(t_opt *opts, t_file *list, t_file **file)
 		i = 0;
 		while (i < list->nfiles)
 		{
-			if (file[i]->permissions[0] == 'd' && file[i]->name[0] != '.')
+			if (file[i]->isdir == 1 && file[i]->name[0] != '.')
 			{
+				// printf("nfiles are: %d\n", list->nfiles);
+				// printf("i is: %d\n", i);
 				// printf("file path is: %s\n", file[i]->path);
 				// printf("opts path is: %s\n", opts->path);
-				p = ft_strdup(opts->path);   //need to retun correct opts->path after recursion
-				p = ft_new_path(opts->path, file[i]->name);
+				// p = ft_strdup(opts->path);   //need to retun correct opts->path after recursion
+				// p = ft_new_path(opts->path, file[i]->name);
 				opts->subdir = 1;
-				a = opts->path;
-				check_arg(opts, p);
-				opts->path = a;
-				free(p);
+				// a = opts->path;
+				check_arg(opts, file[i]->path);
+
+				// opts->path = a;
+				// free(file[i]);
+
 			}
 			clear_file(file[i]);
 			i++;
 		}
-		free(file);
+		// free(file);
 	}
 }
 

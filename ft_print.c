@@ -49,8 +49,11 @@ void	print_total(t_opt *opts, t_file *list)
 	opts->subdir = 0; //check if needed
 	if (opts->is_l == 1)
 	{
-		ft_putstr("total ");
-		ft_putnbr(list->total);
+		if (list->total != 0)
+			{
+				ft_putstr("total ");
+				ft_putnbr(list->total);
+			}
 		ft_putchar('\n');
 	}
 }
