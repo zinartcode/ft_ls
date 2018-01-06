@@ -28,14 +28,10 @@
 #include <fcntl.h>
 #include <limits.h>
 
-typedef struct		s_data
-{
-	void			*data;
-	struct s_list	*next;
-}					t_data;
-
 typedef struct		s_opt
 {
+	int				flag;
+	int				i;
 	int				subdir;
 	int				is_l;
 	int				is_upper_r;
@@ -43,12 +39,13 @@ typedef struct		s_opt
 	int				is_lower_r;
 	int				is_t;
 	char			*path;
+	char			*hp;
 }					t_opt;
 
 typedef struct		s_file
 {
-	int				nfiles;
 	int				isdir;
+	int				nfiles;
 	char			*path;
 	char			permissions[11];
 	int				nlinks;
@@ -64,6 +61,8 @@ typedef struct		s_file
 }					t_file;
 
 int					main(int ac, char **av);
+int					ok_to_recurse(char *path);
+void				intit_opts(t_opt *opts);
 void				print_file(t_opt *opts);
 void				print_name(t_file *list);
 void				print_time(time_t *date);
@@ -85,6 +84,5 @@ void				process_args2(t_opt *opts, t_file *list, DIR *dir);
 void				getstats(struct stat *mystat, t_file *list);
 void				get_type(struct stat *mystat, t_file *list);
 char				*ft_new_path(char *original, char *name);
-
 
 #endif

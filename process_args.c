@@ -12,37 +12,6 @@
 
 #include "ft_ls.h"
 
-void	get_flags(t_opt *opts, char **av)
-{
-	size_t			i;
-
-	i = ft_strlen(*av);
-	if (av[0][0] == '-' && av[0][1] != '\0')
-	{
-		while (--i >= 1)
-		{
-		if (av[0][i] == 'l')
-			opts->is_l = 1;
-		else if (av[0][i] == 'R')
-			opts->is_upper_r = 1;
-		else if (av[0][i] == 'a')
-			opts->is_a = 1;
-		else if (av[0][i] == 'r')
-			opts->is_lower_r = 1;
-		else if (av[0][i] == 't')
-			opts->is_t = 1;
-		else
-			{
-				ft_putstr("ft_ls: illegal option -- ");
-				ft_putchar(av[0][i]);
-				ft_putstr("\nusage: ft_ls [-ABCFGHLOPRSTUW");
-				ft_putstr("abcdefghiklmnopqrstuwx1] [file ...]\n");
-				exit(1);
-			}
-		}
-	}
-}
-
 void	process_args(t_opt *opts, DIR *dir)
 {
 	struct stat mystat;
