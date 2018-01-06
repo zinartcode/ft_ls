@@ -21,7 +21,6 @@ void	process_args(t_opt *opts, DIR *dir)
 
 	list = ft_memalloc(sizeof(t_file));
 	clear_file(list);
-	// dir  = opendir(opts->path);
 	while ((sd = readdir(dir)) != NULL)
 	{
 		if(opts->is_a == 0 && sd->d_name[0] == '.')
@@ -38,7 +37,6 @@ void	process_args(t_opt *opts, DIR *dir)
 		}
 		free(p);
 	}
-		// closedir(dir);
 		process_args2(opts, list, dir);
 		free(list);
 }
@@ -92,9 +90,9 @@ void check_arg(t_opt *opts, char *av)
 			closedir(dir);
 		}
 		else if (stat(opts->path, &mystat) == 0 && S_ISREG(mystat.st_mode))
-		{ 
-			print_file(opts);
-			// exit(0);
+		{
+			ft_putstr(opts->path);
+			ft_putchar('\n');
 		}
 		else
 		{

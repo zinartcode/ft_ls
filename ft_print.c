@@ -12,12 +12,6 @@
 
 #include "ft_ls.h"
 
-void	print_file(t_opt *opts)
-{
-	ft_putstr(opts->path);
-	ft_putchar('\n');
-}
-
 void	print_time(time_t *date)
 {
 	time_t	curr_time;
@@ -44,9 +38,8 @@ void	print_total(t_opt *opts, t_file *list)
 		ft_putstr(opts->path);
 		ft_putchar(':');
 		ft_putchar('\n');
-		opts->subdir = 0;
 	}
-	opts->subdir = 0; //check if needed
+	opts->subdir = 0;
 	if (opts->is_l == 1)
 	{
 		if (list->total != 0)

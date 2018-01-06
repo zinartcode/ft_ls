@@ -87,10 +87,7 @@ void	process_opts(t_opt *opts, t_file *list, t_file **file)
 {
 	int	i;
 	int	j;
-	// char *p;
-	// char 	*a;
 
-	// p = NULL;
 	j = 0;
 	i = 0;
 	if (opts->is_l == 1)
@@ -110,26 +107,13 @@ void	process_opts(t_opt *opts, t_file *list, t_file **file)
 		{
 			if ((file[i]->isdir == 1) && (ok_to_recurse(file[i]->name) != 0))
 			{
-				// printf("nfiles are: %d\n", list->nfiles);
-				// printf("i is: %d\n", i);
-				// printf("file name is: %s\n", file[i]->name);
-				// printf("file path is: %s\n", file[i]->path);
-				// printf("opts path is: %s\n", opts->path);
-				// p = ft_strdup(opts->path);   //need to retun correct opts->path after recursion
-				// p = ft_new_path(opts->path, file[i]->name);
 				opts->subdir = 1;
-				// a = opts->path;
 				check_arg(opts, file[i]->path);
-
-				// opts->path = a;
-				// free(file[i]);
-
 			}
 			clear_file(file[i]);
 			free(file[i]);
 			i++;
 		}
-		// free(file);
 	}
 }
 
