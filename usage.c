@@ -56,10 +56,8 @@ void	getstats(struct stat *mystat, t_file *list)
 			list->date_raw = (int)mystat->st_mtimespec.tv_sec;
 }
 
-void	sort_files(t_opt *opts, t_file *list, t_file **file)
+void	sort_files(t_opt *opts, t_file *list, t_file **file, int i)
 {
-	int	i;
-
 	i = 0;
 	sort_ar(file, list->nfiles);
 	if (opts->is_lower_r == 1)
