@@ -26,8 +26,8 @@ int	main(int ac, char **av)
 			check_arg(opts, opts->path);
 		else
 			return(1);
-	free(opts);
-	return (0);
+		free(opts);
+		return (0);
 }
 
 void	get_args(char **av, t_opt *opts, int i)
@@ -86,8 +86,7 @@ void	get_flags(t_opt *opts, char **av)
 		{
 			ft_putstr("ft_ls: illegal option -- ");
 			ft_putchar(av[0][i]);
-			ft_putstr("\nusage: ft_ls [-ABCFGHLOPRSTUW");
-			ft_putstr("abcdefghiklmnopqrstuwx1] [file ...]\n");
+			ft_putstr("\nusage: ft_ls [-Raltr] [file ...]\n");
 			exit(1);
 		}
 	}
@@ -110,6 +109,3 @@ void	clear_file(t_file *file)
 	file->name = NULL;
 	file->date = 0;
 }
-
-// do process_args2 and process_opts and norme
-// modify Makefile to compile GCC, remove debugging

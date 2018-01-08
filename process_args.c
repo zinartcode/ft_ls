@@ -42,15 +42,23 @@ void	process_args(t_opt *opts, DIR *dir)
 
 void	process_args2(t_opt *opts, t_file *list, DIR *dir)
 {
-	struct stat mystat;
-	struct dirent *sd;
-	char	*p;
 	t_file **file;
 	int	i;
 
 	i = 0;
 	dir  = opendir(opts->path);
 	file = ft_memalloc(list->nfiles * sizeof(file));
+	process_args3(opts, file, dir, i);
+	closedir(dir);
+	sort_files(opts, list, file, i);
+}
+
+void	process_args3(t_opt *opts, t_file **file, DIR *dir, int i)
+{
+	char	*p;
+	struct stat mystat;
+	struct dirent *sd;
+
 	while ((sd = readdir(dir)) != NULL)
 	{
 		file[i] = ft_memalloc(sizeof(t_file));
@@ -70,37 +78,7 @@ void	process_args2(t_opt *opts, t_file *list, DIR *dir)
 		free(p);
 		i++;
 	}
-	closedir(dir);
-	sort_files(opts, list, file);
 }
-
-// void	process_args2(t_opt *opts, t_file *list, DIR *dir, char *p)
-// {
-// 	struct stat mystat;
-// 	struct dirent *sd;
-// 	t_file **file;
-// 	int	i;
-
-// 	i = 0;
-// 	dir  = opendir(opts->path);
-// 	file = ft_memalloc(list->nfiles * sizeof(file));
-// 	while ((sd = readdir(dir)) != NULL)
-// 	{
-// 		file[i] = ft_memalloc(sizeof(t_file));
-// 		if (opts->is_a != 0 && sd->d_name[0] != '.')
-// 		p = ft_new_path(opts->path, sd->d_name);
-// 		if ((lstat(p, &mystat)) == 0)
-// 		{
-// 			file[i]->name = sd->d_name;
-// 			file[i]->path = ft_strdup(p);
-// 			getstats(&mystat, file[i]);
-// 		}
-// 		i++;
-// 	}
-// 	free(p);
-// 	closedir(dir);
-// 	sort_files(opts, list, file);
-// }
 
 void check_arg(t_opt *opts, char *av)
 {
