@@ -12,52 +12,52 @@
 
 #include "ft_ls.h"
 
-void	process_args(t_opt *opts, DIR *dir)
+void				process_args(t_opt *opts, DIR *dir)
 {
-	struct stat mystat;
-	struct dirent *sd;
-	char	*p;
-	t_file *list;
+	struct stat		mystat;
+	struct dirent	*sd;
+	char			*p;
+	t_file			*list;
 
 	list = ft_memalloc(sizeof(t_file));
 	clear_file(list);
 	while ((sd = readdir(dir)) != NULL)
 	{
-		if(opts->is_a == 0 && sd->d_name[0] == '.')
+		if (opts->is_a == 0 && sd->d_name[0] == '.')
 		{
 			p = NULL;
 			continue;
 		}
 		else
-		p = ft_new_path(opts->path, sd->d_name);
+			p = ft_new_path(opts->path, sd->d_name);
 		if ((lstat(p, &mystat)) == 0)
 		{
 			list->total += mystat.st_blocks;
 			list->nfiles++;
 		}
 	}
-		process_args2(opts, list, dir);
-		free(list);
+	process_args2(opts, list, dir);
+	free(list);
 }
 
-void	process_args2(t_opt *opts, t_file *list, DIR *dir)
+void				process_args2(t_opt *opts, t_file *list, DIR *dir)
 {
-	t_file **file;
-	int	i;
+	t_file			**file;
+	int				i;
 
 	i = 0;
-	dir  = opendir(opts->path);
+	dir = opendir(opts->path);
 	file = ft_memalloc(list->nfiles * sizeof(file));
 	process_args3(opts, file, dir, i);
 	closedir(dir);
 	sort_files(opts, list, file, i);
 }
 
-void	process_args3(t_opt *opts, t_file **file, DIR *dir, int i)
+void				process_args3(t_opt *opts, t_file **file, DIR *dir, int i)
 {
-	char	*p;
-	struct stat mystat;
-	struct dirent *sd;
+	char			*p;
+	struct stat		mystat;
+	struct dirent	*sd;
 
 	while ((sd = readdir(dir)) != NULL)
 	{
@@ -68,7 +68,7 @@ void	process_args3(t_opt *opts, t_file **file, DIR *dir, int i)
 			continue;
 		}
 		else
-		p = ft_new_path(opts->path, sd->d_name);
+			p = ft_new_path(opts->path, sd->d_name);
 		if ((lstat(p, &mystat)) == 0)
 		{
 			file[i]->name = ft_strdup(sd->d_name);
@@ -80,10 +80,10 @@ void	process_args3(t_opt *opts, t_file **file, DIR *dir, int i)
 	}
 }
 
-void check_arg(t_opt *opts, char *av)
+void				check_arg(t_opt *opts, char *av)
 {
-	DIR	*dir;
-	struct stat mystat;
+	DIR				*dir;
+	struct stat		mystat;
 
 	if (av[0] != '-')
 	{
@@ -102,19 +102,18 @@ void check_arg(t_opt *opts, char *av)
 		else
 		{
 			ft_putstr("ft_ls: ");
-			ft_putstr(av);  
+			ft_putstr(av);
 			ft_putstr(": No such file or directory\n");
 			exit(1);
 		}
 	}
 }
 
-
-char	*ft_new_path(char *original, char *name)
+char				*ft_new_path(char *original, char *name)
 {
-	int		len;
-	char	*temp;
-	char 	*t;
+	int				len;
+	char			*temp;
+	char			*t;
 
 	len = ft_strlen(original);
 	if ((*original) && ((original)[len - 1] != '/'))
@@ -122,8 +121,7 @@ char	*ft_new_path(char *original, char *name)
 		t = ft_strjoin(original, "/");
 		temp = ft_strjoin(t, name);
 		free(t);
-		return(temp);
+		return (temp);
 	}
-	
-		return(ft_strjoin(original, name));
+	return (ft_strjoin(original, name));
 }
