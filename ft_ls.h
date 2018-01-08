@@ -64,7 +64,6 @@ int					main(int ac, char **av);
 void				get_args(char **av, t_opt *opts, int i);
 int					ok_to_recurse(char *path);
 void				init_opts(t_opt *opts);
-void				print_name(t_file *list);
 void				print_time(time_t *date);
 void				print_l(t_file *list);
 void				print_total(t_opt *opts, t_file *list);
