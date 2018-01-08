@@ -35,7 +35,6 @@ void	process_args(t_opt *opts, DIR *dir)
 			list->total += mystat.st_blocks;
 			list->nfiles++;
 		}
-		free(p);
 	}
 		process_args2(opts, list, dir);
 		free(list);
@@ -64,7 +63,7 @@ void	process_args2(t_opt *opts, t_file *list, DIR *dir)
 		p = ft_new_path(opts->path, sd->d_name);
 		if ((lstat(p, &mystat)) == 0)
 		{
-			file[i]->name = sd->d_name;
+			file[i]->name = ft_strdup(sd->d_name);
 			file[i]->path = ft_strdup(p);
 			getstats(&mystat, file[i]);
 		}
@@ -74,6 +73,34 @@ void	process_args2(t_opt *opts, t_file *list, DIR *dir)
 	closedir(dir);
 	sort_files(opts, list, file);
 }
+
+// void	process_args2(t_opt *opts, t_file *list, DIR *dir, char *p)
+// {
+// 	struct stat mystat;
+// 	struct dirent *sd;
+// 	t_file **file;
+// 	int	i;
+
+// 	i = 0;
+// 	dir  = opendir(opts->path);
+// 	file = ft_memalloc(list->nfiles * sizeof(file));
+// 	while ((sd = readdir(dir)) != NULL)
+// 	{
+// 		file[i] = ft_memalloc(sizeof(t_file));
+// 		if (opts->is_a != 0 && sd->d_name[0] != '.')
+// 		p = ft_new_path(opts->path, sd->d_name);
+// 		if ((lstat(p, &mystat)) == 0)
+// 		{
+// 			file[i]->name = sd->d_name;
+// 			file[i]->path = ft_strdup(p);
+// 			getstats(&mystat, file[i]);
+// 		}
+// 		i++;
+// 	}
+// 	free(p);
+// 	closedir(dir);
+// 	sort_files(opts, list, file);
+// }
 
 void check_arg(t_opt *opts, char *av)
 {
@@ -96,7 +123,7 @@ void check_arg(t_opt *opts, char *av)
 		}
 		else
 		{
-			ft_putstr("ft_ls: ");  
+			ft_putstr("ft_ls: ");
 			ft_putstr(av);  
 			ft_putstr(": No such file or directory\n");
 			exit(1);

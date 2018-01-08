@@ -12,36 +12,46 @@
 
 #include "ft_ls.h"
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_opt	*opts;
 	int i;
 
-	i = 0;
+	i = 1;
 	opts = ft_memalloc(sizeof(t_file));
-	intit_opts(opts);
-	if (ac >= 2)
-	{
-		while(av[++i] != '\0')
-		{
-			if (av[i][0] == '-' && av[i][1] != '\0')
-				get_flags(opts, &av[i]);
-			if (av[i][0] != '-')
-			{
-				opts->path = *av;
-				opts->flag  = 1;
-				check_arg(opts, av[i]);
-				opts->subdir = 1;
-			}
-		}
-	}
-	if (ac == 1 || opts->flag == 0)
-		check_arg(opts, opts->hp);
+	init_opts(opts);
+		if(ac >= 2)
+			get_args(av, opts, i);
+		if (ac == 1)
+			check_arg(opts, opts->path);
+		else
+			return(1);
 	free(opts);
 	return (0);
 }
 
-void	intit_opts(t_opt *opts)
+void	get_args(char **av, t_opt *opts, int i)
+{
+	while(av[i] != '\0')
+	{
+		if (av[i][0] == '-' && av[i][1] != '\0')
+		{
+			get_flags(opts, &av[i]);
+		}
+		if (av[i][0] != '-' && av[i][0] != '\0')
+		{
+			opts->path = *av;
+			opts->flag  = 1;
+			check_arg(opts, av[i]);
+			opts->subdir = 1;
+		}
+		i++;
+	}
+	if (opts->flag == 0)
+		check_arg(opts, opts->path);
+}
+
+void	init_opts(t_opt *opts)
 {
 	opts->path = ".";
 	opts->subdir = 0;

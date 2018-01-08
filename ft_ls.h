@@ -61,8 +61,9 @@ typedef struct		s_file
 }					t_file;
 
 int					main(int ac, char **av);
+void				get_args(char **av, t_opt *opts, int i);
 int					ok_to_recurse(char *path);
-void				intit_opts(t_opt *opts);
+void				init_opts(t_opt *opts);
 void				print_name(t_file *list);
 void				print_time(time_t *date);
 void				print_l(t_file *list);
@@ -77,7 +78,8 @@ void				clear_file(t_file *file);
 char				*mod_time(time_t mtime);
 void				get_flags(t_opt *opts, char **av);
 void				check_arg(t_opt *opts, char *av);
-void				process_opts(t_opt *opts, t_file *list, t_file **file);
+void				process_l(t_opt *opts, t_file *list, t_file **file);
+void				process_upper_r(t_opt *opts, t_file *list, t_file **file);
 void				process_args(t_opt *opts, DIR *dir);
 void				process_args2(t_opt *opts, t_file *list, DIR *dir);
 void				getstats(struct stat *mystat, t_file *list);
