@@ -10,23 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	FT_LS_H
-#define	FT_LS_H
-#include	"libft/includes/libft.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <dirent.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <grp.h>
-#include <termios.h>
-#include <sys/ioctl.h>
-#include <pwd.h>
-#include <grp.h>
-#include <time.h>
-#include <fcntl.h>
-#include <limits.h>
+#ifndef FT_LS_H
+# define FT_LS_H
+# include "libft/includes/libft.h"
+# include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <dirent.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <grp.h>
+# include <termios.h>
+# include <sys/ioctl.h>
+# include <pwd.h>
+# include <grp.h>
+# include <time.h>
+# include <fcntl.h>
+# include <limits.h>
 
 typedef struct		s_opt
 {

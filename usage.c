@@ -38,50 +38,22 @@ void	get_type(struct stat *mystat, t_file *list)
 void	getstats(struct stat *mystat, t_file *list)
 {
 	get_type(mystat, list);
-			list->permissions[1] = (mystat->st_mode & S_IRUSR) ? 'r' : '-';
-			list->permissions[2] = (mystat->st_mode & S_IWUSR) ? 'w' : '-';
-			list->permissions[3] = (mystat->st_mode & S_IXUSR) ? 'x' : '-';
-			list->permissions[4] = (mystat->st_mode & S_IRGRP) ? 'r' : '-';
-			list->permissions[5] = (mystat->st_mode & S_IWGRP) ? 'w' : '-';
-			list->permissions[6] = (mystat->st_mode & S_IXGRP) ? 'x' : '-';
-			list->permissions[7] = (mystat->st_mode & S_IROTH) ? 'r' : '-';
-			list->permissions[8] = (mystat->st_mode & S_IWOTH) ? 'w' : '-';
-			list->permissions[9] = (mystat->st_mode & S_IXOTH) ? 'x' : '-';
-			list->permissions[10] = '\0';
-			list->nlinks = (int)mystat->st_nlink;
-			list->username = getpwuid(mystat->st_uid)->pw_name;
-			list->groupname = getgrgid(mystat->st_gid)->gr_name;
-			list->byte_size = (int)mystat->st_size;
-			list->block_size = (int)mystat->st_blocks;
-			list->date_raw = (int)mystat->st_mtimespec.tv_sec;
-}
-
-void	sort_files(t_opt *opts, t_file *list, t_file **file, int i)
-{
-	i = 0;
-	sort_ar(file, list->nfiles);
-	if (opts->is_lower_r == 1)
-		sort_ar_rev(file, list->nfiles);
-	if (opts->is_t == 1)
-		sort_date(file, list->nfiles);
-	if (opts->is_t == 1 && opts->is_lower_r == 1)
-		sort_date_rev(file, list->nfiles);
-	if (opts->is_l == 0)
-	{
-		if (opts->is_upper_r == 1)
-		print_total(opts, list);
-		while (i < list->nfiles)
-		{
-			print_total(opts, list);
-			ft_putstr(file[i]->name);
-			ft_putchar('\n');
-			i++;
-		}
-	}
-	if (opts->is_l == 1)
-	process_l(opts, list, file);
-	if (opts->is_upper_r == 1)
-	process_upper_r(opts, list, file);
+	list->permissions[1] = (mystat->st_mode & S_IRUSR) ? 'r' : '-';
+	list->permissions[2] = (mystat->st_mode & S_IWUSR) ? 'w' : '-';
+	list->permissions[3] = (mystat->st_mode & S_IXUSR) ? 'x' : '-';
+	list->permissions[4] = (mystat->st_mode & S_IRGRP) ? 'r' : '-';
+	list->permissions[5] = (mystat->st_mode & S_IWGRP) ? 'w' : '-';
+	list->permissions[6] = (mystat->st_mode & S_IXGRP) ? 'x' : '-';
+	list->permissions[7] = (mystat->st_mode & S_IROTH) ? 'r' : '-';
+	list->permissions[8] = (mystat->st_mode & S_IWOTH) ? 'w' : '-';
+	list->permissions[9] = (mystat->st_mode & S_IXOTH) ? 'x' : '-';
+	list->permissions[10] = '\0';
+	list->nlinks = (int)mystat->st_nlink;
+	list->username = getpwuid(mystat->st_uid)->pw_name;
+	list->groupname = getgrgid(mystat->st_gid)->gr_name;
+	list->byte_size = (int)mystat->st_size;
+	list->block_size = (int)mystat->st_blocks;
+	list->date_raw = (int)mystat->st_mtimespec.tv_sec;
 }
 
 void	process_l(t_opt *opts, t_file *list, t_file **file)
@@ -94,19 +66,19 @@ void	process_l(t_opt *opts, t_file *list, t_file **file)
 		print_total(opts, list);
 		while (i < list->nfiles)
 		{
-		print_l(file[i]);
-		i++;
+			print_l(file[i]);
+			i++;
 		}
 	}
 }
 
 void	process_upper_r(t_opt *opts, t_file *list, t_file **file)
 {
-	int	i;
-	char *p;
+	int		i;
+	char	*p;
 
 	i = 0;
-	p = (char*)ft_memalloc(sizeof(char)*(ft_strlen(opts->path) + 1));
+	p = (char*)ft_memalloc(sizeof(char) * (ft_strlen(opts->path) + 1));
 	while (i < list->nfiles)
 	{
 		if ((file[i]->isdir == 1) && (ok_to_recurse(file[i]->name) != 0))
@@ -130,4 +102,3 @@ int		ok_to_recurse(char *path)
 		return (0);
 	return (1);
 }
-
