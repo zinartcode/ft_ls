@@ -74,22 +74,22 @@ void	sort_files(t_opt *opts, t_file *list, t_file **file)
 		print_total(opts, list);
 		while (i < list->nfiles)
 		{
-			ft_putstr(list->path);
+			print_total(opts, list);
+			ft_putstr(file[i]->name);
 			ft_putchar('\n');
-		i++;
+			i++;
 		}
-		i = 0;
 	}
-	if (opts->is_l == 1 || opts->is_upper_r == 1)
-	process_opts(opts, list, file);
+	if (opts->is_l == 1)
+	process_l(opts, list, file);
+	if (opts->is_upper_r == 1)
+	process_upper_r(opts, list, file);
 }
 
-void	process_opts(t_opt *opts, t_file *list, t_file **file)
+void	process_l(t_opt *opts, t_file *list, t_file **file)
 {
 	int	i;
-	int	j;
 
-	j = 0;
 	i = 0;
 	if (opts->is_l == 1)
 	{
@@ -100,21 +100,27 @@ void	process_opts(t_opt *opts, t_file *list, t_file **file)
 		i++;
 		}
 	}
+}
 
-	if (opts->is_upper_r == 1)
+void	process_upper_r(t_opt *opts, t_file *list, t_file **file)
+{
+	int	i;
+	char *p;
+
+	i = 0;
+	p = (char*)ft_memalloc(sizeof(char)*(ft_strlen(opts->path) + 1));
+	while (i < list->nfiles)
 	{
-		i = 0;
-		while (i < list->nfiles)
+		if ((file[i]->isdir == 1) && (ok_to_recurse(file[i]->name) != 0))
 		{
-			if ((file[i]->isdir == 1) && (ok_to_recurse(file[i]->name) != 0))
-			{
-				opts->subdir = 1;
-				check_arg(opts, file[i]->path);
-			}
-			clear_file(file[i]);
-			free(file[i]);
-			i++;
+			p = ft_strdup(opts->path);
+			opts->path = ft_new_path(opts->path, file[i]->name);
+			opts->subdir = 1;
+			check_arg(opts, file[i]->path);
+			opts->path = file[i]->path;
 		}
+		free(file[i]);
+		i++;
 	}
 }
 
