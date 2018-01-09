@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 23:54:45 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/29 23:25:50 by azinnatu         ###   ########.fr       */
+/*   Updated: 2018/01/08 21:50:18 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void				process_args2(t_opt *opts, t_file *list, DIR *dir)
 	process_args3(opts, file, dir, i);
 	closedir(dir);
 	sort_files(opts, list, file, i);
+	free(file);
 }
 
 void				process_args3(t_opt *opts, t_file **file, DIR *dir, int i)
@@ -96,15 +97,15 @@ void				check_arg(t_opt *opts, char *av)
 		}
 		else if (stat(opts->path, &mystat) == 0 && S_ISREG(mystat.st_mode))
 		{
-			ft_putstr(opts->path);
-			ft_putchar('\n');
+			dir = opendir(opts->hp);
+			process_file(opts, opts->path, dir);
+			closedir(dir);
 		}
 		else
 		{
 			ft_putstr("ft_ls: ");
 			ft_putstr(av);
 			ft_putstr(": No such file or directory\n");
-			exit(1);
 		}
 	}
 }

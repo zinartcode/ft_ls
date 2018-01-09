@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 19:51:45 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/29 23:24:19 by azinnatu         ###   ########.fr       */
+/*   Updated: 2018/01/08 21:28:01 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	process_upper_r(t_opt *opts, t_file *list, t_file **file)
 		free(file[i]);
 		i++;
 	}
+	free(p);
 }
 
 int		ok_to_recurse(char *path)

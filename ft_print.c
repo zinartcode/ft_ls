@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 15:38:20 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/27 20:12:50 by azinnatu         ###   ########.fr       */
+/*   Updated: 2018/01/08 21:29:34 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char		*mod_time(time_t mtime)
 	time(&curr_time);
 	f_mtime = ctime(&mtime);
 	ft_strncat(t1, &f_mtime[4], 7);
-	if (curr_time - mtime > 15780000)
+	if (curr_time - mtime > 15552000)
 		ft_strncat(t2, &f_mtime[19], 5);
 	else
 		ft_strncat(t2, &f_mtime[11], 5);
@@ -44,7 +44,7 @@ void		print_time(time_t *date)
 	f_ctime = ctime(&curr_time);
 	f_mtime = ctime(date);
 	ft_putnstr(&f_mtime[4], 7);
-	if (curr_time - *date > 15780000)
+	if (curr_time - *date > 115552000)
 		ft_putnstr(&f_mtime[19], 5);
 	else
 		ft_putnstr(&f_mtime[11], 5);

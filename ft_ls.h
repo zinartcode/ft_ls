@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 16:33:16 by azinnatu          #+#    #+#             */
-/*   Updated: 2017/12/29 23:26:00 by azinnatu         ###   ########.fr       */
+/*   Updated: 2018/01/08 21:29:41 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void				get_flags(t_opt *opts, char **av);
 void				check_arg(t_opt *opts, char *av);
 void				process_l(t_opt *opts, t_file *list, t_file **file);
 void				process_upper_r(t_opt *opts, t_file *list, t_file **file);
+void				process_file(t_opt *opts, char *f, DIR *dir);
 void				process_args(t_opt *opts, DIR *dir);
 void				process_args2(t_opt *opts, t_file *list, DIR *dir);
 void				process_args3(t_opt *opts, t_file **file, DIR *dir, int i);
