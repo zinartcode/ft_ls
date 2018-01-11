@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 15:46:29 by azinnatu          #+#    #+#             */
-/*   Updated: 2018/01/08 21:29:18 by azinnatu         ###   ########.fr       */
+/*   Updated: 2018/01/10 23:48:18 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	get_args(char **av, t_opt *opts, int i)
 		{
 			get_flags(opts, &av[i]);
 		}
-		if (av[i][0] != '-' && av[i][0] != '\0')
+		// if (av[i][0] != '-' && av[i][0] != '\0')
+		else
 		{
 			opts->path = *av;
 			opts->flag = 1;
@@ -84,10 +85,17 @@ void	get_flags(t_opt *opts, char **av)
 			opts->is_t = 1;
 		else
 		{
-			ft_putstr("ft_ls: illegal option -- ");
-			ft_putchar(av[0][i]);
-			ft_putstr("\nusage: ft_ls [-Raltr] [file ...]\n");
+			ft_puterror("ft_ls: ");
+			ft_puterror("illegal option -- ");
+			ft_puterror(&av[0][i]);
+			ft_puterror("\nusage: ft_ls [-Raltr] [file ...]\n");
 			exit(1);
 		}
 	}
 }
+
+// handle permission denied - insaccessible folder  - done
+// handle sort args
+// empty line?
+//  libft a file remove when compiling
+// test setuid setgid stickybit
