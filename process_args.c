@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 23:54:45 by azinnatu          #+#    #+#             */
-/*   Updated: 2018/01/08 21:50:18 by azinnatu         ###   ########.fr       */
+/*   Updated: 2018/01/10 23:48:42 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,31 +84,61 @@ void				process_args3(t_opt *opts, t_file **file, DIR *dir, int i)
 void				check_arg(t_opt *opts, char *av)
 {
 	DIR				*dir;
-	struct stat		mystat;
+	struct stat		myst;
+	int				n;
 
-	if (av[0] != '-')
+	opts->path = av;
+	n = stat(opts->path, &myst);
+	dir = ft_memalloc(sizeof(DIR));
+	if (((dir = (DIR*)opendir(opts->path)) != NULL) && S_ISDIR(myst.st_mode))
 	{
-		opts->path = av;
-		if (stat(opts->path, &mystat) == 0 && S_ISDIR(mystat.st_mode))
-		{
-			dir = opendir(opts->path);
-			process_args(opts, dir);
-			closedir(dir);
-		}
-		else if (stat(opts->path, &mystat) == 0 && S_ISREG(mystat.st_mode))
-		{
-			dir = opendir(opts->hp);
-			process_file(opts, opts->path, dir);
-			closedir(dir);
-		}
-		else
-		{
-			ft_putstr("ft_ls: ");
-			ft_putstr(av);
-			ft_putstr(": No such file or directory\n");
-		}
+		process_args(opts, dir);
+		closedir(dir);
+	}
+	else if (((dir = (DIR*)opendir(opts->hp)) != NULL) && S_ISREG(myst.st_mode))
+	{
+		process_file(opts, opts->path, dir);
+		closedir(dir);
+	}
+	else
+	{
+		ft_lserror(av);
+		ft_puterror(strerror(errno));
+		write(2, "\n", 1);
 	}
 }
+
+// void				check_arg(t_opt *opts, char *av)
+// {
+// 	DIR				*dir;
+// 	struct stat		myst;
+// 	int				n;
+
+// 		opts->path = av;
+// 		n = stat(opts->path, &myst);
+// 		dir = ft_memalloc(sizeof(DIR));
+// 		if (n == 0 && ((dir = (DIR*)opendir(opts->path)) != NULL))
+// 		{
+// 		 	if (S_ISDIR(myst.st_mode))
+// 			{
+// 				process_args(opts, dir);
+// 				closedir(dir);
+// 			}
+// 			else if (S_ISREG(myst.st_mode))
+// 			{
+// 				process_file(opts, opts->path, dir);
+// 				closedir(dir);
+// 			}
+// 		}
+// 		else
+// 		{
+// 			ft_lserror(av);
+// 			ft_puterror(strerror(errno));
+// 			write(2, "\n", 1);
+// 		}
+// }
+
+
 
 char				*ft_new_path(char *original, char *name)
 {

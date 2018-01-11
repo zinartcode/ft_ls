@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 16:33:16 by azinnatu          #+#    #+#             */
-/*   Updated: 2018/01/08 21:29:41 by azinnatu         ###   ########.fr       */
+/*   Updated: 2018/01/09 17:13:24 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <time.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <errno.h>
 
 typedef struct		s_opt
 {
@@ -64,6 +65,8 @@ int					main(int ac, char **av);
 void				get_args(char **av, t_opt *opts, int i);
 int					ok_to_recurse(char *path);
 void				init_opts(t_opt *opts);
+void				ft_lserror(char *str);
+void				ft_puterror(char *str);
 void				print_time(time_t *date);
 void				print_l(t_file *list);
 void				print_total(t_opt *opts, t_file *list);

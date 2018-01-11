@@ -6,7 +6,7 @@
 #    By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 19:05:46 by azinnatu          #+#    #+#              #
-#    Updated: 2018/01/08 21:32:54 by azinnatu         ###   ########.fr        #
+#    Updated: 2018/01/10 23:47:55 by azinnatu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ OBJS =	main.o \
 		sort.o \
 		process_args.o \
 		process_file.o \
+		ft_error.o \
 		ft_print.o				
 
 LIBFT= libft/libft.a
@@ -22,7 +23,7 @@ LIBS = $(LIBFT)
 
 HEADERS = ft_ls.h ./libft/includes/libft.h
 
-CFLAGS += -Wall -Wextra -Werror
+CFLAGS += -Wall -Wextra -Werror -g
 
 NAME = ft_ls
 
