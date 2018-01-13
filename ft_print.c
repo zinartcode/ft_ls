@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 15:38:20 by azinnatu          #+#    #+#             */
-/*   Updated: 2018/01/09 19:00:54 by azinnatu         ###   ########.fr       */
+/*   Updated: 2018/01/11 23:56:35 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,26 @@ void		print_time(time_t *date)
 
 void		print_total(t_opt *opts, t_file *list)
 {
-	if (opts->subdir == 1)
+	// printf("opts->argf is: %d\n", opts->argf);
+	// printf("opts->argd is: %d\n", opts->argd);
+	if (opts->subdir == 1) //&& list->nfiles != 0)
 	{
+		if (opts->argf != 0 || opts->argd != 0)
 		ft_putchar('\n');
 		ft_putstr(opts->path);
 		ft_putchar(':');
 		ft_putchar('\n');
 	}
-	opts->subdir = 0;
-	if (opts->is_l == 1)
+	if (opts->is_l == 1 || list->isdir == 1)
 	{
-		if (list->total != 0)
-		{
-			ft_putstr("total ");
-			ft_putnbr(list->total);
-		}
+		// if (list->total != 0)
+		// if (opts->is_upper_r == 1) // && list->nfiles != 0) // || opts->subdir != 0)
+		// 	{
+		ft_putstr("total ");
+		ft_putnbr(list->total);
 		ft_putchar('\n');
 	}
+	opts->subdir = 0;
 }
 
 void		print_l(t_file *list)

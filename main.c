@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/05 15:46:29 by azinnatu          #+#    #+#             */
-/*   Updated: 2018/01/10 23:48:18 by azinnatu         ###   ########.fr       */
+/*   Created: 2018/01/12 00:20:18 by azinnatu          #+#    #+#             */
+/*   Updated: 2018/01/12 00:58:08 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,41 +21,32 @@ int		main(int ac, char **av)
 	opts = ft_memalloc(sizeof(t_file));
 	init_opts(opts);
 	if (ac >= 2)
-		get_args(av, opts, i);
-	if (ac == 1)
+	{
+		find_files(av, opts, i);
+		// printf("opts path: %s\n", opts->path);
+		if (opts->i != 0)
+		{
+			// printf("opts i is: %d\n", opts->i);
+			find_dirs(av, opts, i);
+		}
+
+	}
+	else if (ac == 1)
 		check_arg(opts, opts->path);
 	else
 		return (1);
 	free(opts);
+	// opts = NULL;
+	// printf("opts path: %d\n", opts->is_l);
 	return (0);
-}
-
-void	get_args(char **av, t_opt *opts, int i)
-{
-	while (av[i] != '\0')
-	{
-		if (av[i][0] == '-' && av[i][1] != '\0')
-		{
-			get_flags(opts, &av[i]);
-		}
-		// if (av[i][0] != '-' && av[i][0] != '\0')
-		else
-		{
-			opts->path = *av;
-			opts->flag = 1;
-			check_arg(opts, av[i]);
-			opts->subdir = 1;
-		}
-		i++;
-	}
-	if (opts->flag == 0)
-		check_arg(opts, opts->path);
 }
 
 void	init_opts(t_opt *opts)
 {
 	opts->path = ".";
 	opts->subdir = 0;
+	opts->argf = 0;
+	opts->argd = 0;
 	opts->i = 0;
 	opts->flag = 0;
 	opts->hp = ".";

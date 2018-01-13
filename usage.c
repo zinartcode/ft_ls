@@ -61,7 +61,7 @@ void	process_l(t_opt *opts, t_file *list, t_file **file)
 	int	i;
 
 	i = 0;
-	if (opts->is_l == 1)
+	if (opts->is_l == 1 || opts->subdir == 1)
 	{
 		print_total(opts, list);
 		while (i < list->nfiles)
@@ -86,6 +86,7 @@ void	process_upper_r(t_opt *opts, t_file *list, t_file **file)
 			p = ft_strdup(opts->path);
 			opts->path = ft_new_path(opts->path, file[i]->name);
 			opts->subdir = 1;
+			opts->argd = 1;
 			check_arg(opts, file[i]->path);
 			opts->path = file[i]->path;
 		}
