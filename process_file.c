@@ -6,39 +6,118 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 21:27:45 by azinnatu          #+#    #+#             */
-/*   Updated: 2018/01/08 21:46:21 by azinnatu         ###   ########.fr       */
+/*   Updated: 2018/01/12 01:22:53 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	process_file(t_opt *opts, char *f, DIR *dir)
+void	display_files(t_opt *opts, t_file *list, t_file **file)
 {
-	char			*p;
-	struct stat		mystat;
-	struct dirent	*sd;
-	t_file			*file;
+	int	i;
 
-	file = ft_memalloc(sizeof(t_file));
-	if ((sd = readdir(dir)) != NULL)
+	i = 0;
+	if (opts->is_l == 0)
 	{
-		p = ft_new_path(opts->hp, f);
-		if ((lstat(p, &mystat)) == 0)
+		if (opts->is_upper_r == 1)
+			print_total(opts, list);
+		while (i < list->nfiles)
 		{
-			file->name = ft_strdup(f);
-			file->path = ft_strdup(p);
-			getstats(&mystat, file);
-			if (opts->is_l == 1)
-				print_l(file);
-			else
-			{
-				ft_putstr(f);
-				ft_putchar('\n');
-			}
+			print_total(opts, list);
+			ft_putstr(file[i]->name);
+			ft_putchar('\n');
+			i++;
 		}
-		free(p);
+	}
+	if (opts->is_l == 1)
+		process_l(opts, list, file);
+	if (opts->is_upper_r == 1)
+		process_upper_r(opts, list, file);
+}
+
+void	find_files(char **av, t_opt *opts, int i)
+{
+	t_file	**file;
+	t_file	*list;
+	int		n;
+	int		j;
+	int		k;
+	int		count;
+
+	count = 1;
+	n = 0;
+	j = 1;
+	k = 0;
+	list = ft_memalloc(sizeof(t_file));
+	clear_file(list);
+	while (av[i] != '\0')
+	{
+		if (av[i][0] == '-' && av[i][1] != '\0' && n == 0)
+		{
+			get_flags(opts, &av[i]);
+			j++;
+		}
+		else
+			n++;
+		i++;
+	}
+	if (n == 0)
+		check_arg(opts, opts->hp);
+	file = ft_memalloc(n * sizeof(file));
+	file[k] = ft_memalloc(sizeof(t_file));
+	while (n > 0)
+		{
+			clear_file(file[k]);
+			check_if_file(opts, av[j], list, file[k]);
+			j++;
+			// printf("k is: %d\n", k);
+			// printf("file is: %s\n", file[k]->name);
+			if (list->nfiles > k)
+			{
+				k++;
+				count++;
+				file[k] = ft_memalloc(sizeof(t_file));
+			}
+			n--;
+		}
+	sort_files(opts, list, file);
+	display_files(opts, list, file);
+	while (--k >= 0)
+	{
+		free(file[k]);
+		// clear_file(file[k]);
+		// printf("file is: %s\n", file[k]->name);
 	}
 	free(file);
+	// free(list);
+}
+
+void	check_if_file(t_opt *opts, char *av, t_file *list, t_file *file)
+{
+	DIR				*dir;
+	struct stat		myst;
+	char			*p;
+
+	dir = ft_memalloc(sizeof(DIR));
+	p = ft_new_path(opts->hp, av);
+	if (stat(p, &myst) == 0 && S_ISREG(myst.st_mode))
+	{
+		opts->argf++;
+		dir = opendir(opts->hp);
+		file->name = ft_strdup(av);
+		file->path = ft_strdup(p);
+		getstats(&myst, file);
+		closedir(dir);
+		list->nfiles++;
+	}
+	else if (stat(p, &myst) == 0 && S_ISDIR(myst.st_mode))
+		opts->i++;
+	else
+	{
+		// printf("im here\n");
+		check_arg(opts, av);	
+	}
+	free(p);
 }
 
 void	clear_file(t_file *file)

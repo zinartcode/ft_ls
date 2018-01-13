@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 23:54:45 by azinnatu          #+#    #+#             */
-/*   Updated: 2018/01/10 23:48:42 by azinnatu         ###   ########.fr       */
+/*   Updated: 2018/01/12 00:13:29 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void				process_args(t_opt *opts, DIR *dir)
 		}
 		else
 			p = ft_new_path(opts->path, sd->d_name);
+		// printf("p is: %s\n", p);
 		if ((lstat(p, &mystat)) == 0)
 		{
 			list->total += mystat.st_blocks;
@@ -50,7 +51,8 @@ void				process_args2(t_opt *opts, t_file *list, DIR *dir)
 	file = ft_memalloc(list->nfiles * sizeof(file));
 	process_args3(opts, file, dir, i);
 	closedir(dir);
-	sort_files(opts, list, file, i);
+	sort_files(opts, list, file);
+	display_files(opts, list, file);
 	free(file);
 }
 
@@ -96,10 +98,7 @@ void				check_arg(t_opt *opts, char *av)
 		closedir(dir);
 	}
 	else if (((dir = (DIR*)opendir(opts->hp)) != NULL) && S_ISREG(myst.st_mode))
-	{
-		process_file(opts, opts->path, dir);
 		closedir(dir);
-	}
 	else
 	{
 		ft_lserror(av);
@@ -107,38 +106,6 @@ void				check_arg(t_opt *opts, char *av)
 		write(2, "\n", 1);
 	}
 }
-
-// void				check_arg(t_opt *opts, char *av)
-// {
-// 	DIR				*dir;
-// 	struct stat		myst;
-// 	int				n;
-
-// 		opts->path = av;
-// 		n = stat(opts->path, &myst);
-// 		dir = ft_memalloc(sizeof(DIR));
-// 		if (n == 0 && ((dir = (DIR*)opendir(opts->path)) != NULL))
-// 		{
-// 		 	if (S_ISDIR(myst.st_mode))
-// 			{
-// 				process_args(opts, dir);
-// 				closedir(dir);
-// 			}
-// 			else if (S_ISREG(myst.st_mode))
-// 			{
-// 				process_file(opts, opts->path, dir);
-// 				closedir(dir);
-// 			}
-// 		}
-// 		else
-// 		{
-// 			ft_lserror(av);
-// 			ft_puterror(strerror(errno));
-// 			write(2, "\n", 1);
-// 		}
-// }
-
-
 
 char				*ft_new_path(char *original, char *name)
 {
@@ -152,7 +119,9 @@ char				*ft_new_path(char *original, char *name)
 		t = ft_strjoin(original, "/");
 		temp = ft_strjoin(t, name);
 		free(t);
-		return (temp);
+		// return (temp);
 	}
-	return (ft_strjoin(original, name));
+	else
+		temp = ft_strjoin(original, name);
+	return (temp);
 }

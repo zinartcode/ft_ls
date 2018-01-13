@@ -6,15 +6,14 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 21:19:09 by azinnatu          #+#    #+#             */
-/*   Updated: 2018/01/08 21:36:25 by azinnatu         ###   ########.fr       */
+/*   Updated: 2018/01/12 00:16:52 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	sort_files(t_opt *opts, t_file *list, t_file **file, int i)
+void	sort_files(t_opt *opts, t_file *list, t_file **file)
 {
-	i = 0;
 	sort_ar(file, list->nfiles);
 	if (opts->is_t == 1)
 		sort_date(file, list->nfiles);
@@ -22,22 +21,6 @@ void	sort_files(t_opt *opts, t_file *list, t_file **file, int i)
 		sort_ar_rev(file, list->nfiles);
 	if (opts->is_t == 1 && opts->is_lower_r == 1)
 		sort_date_rev(file, list->nfiles);
-	if (opts->is_l == 0)
-	{
-		if (opts->is_upper_r == 1)
-			print_total(opts, list);
-		while (i < list->nfiles)
-		{
-			print_total(opts, list);
-			ft_putstr(file[i]->name);
-			ft_putchar('\n');
-			i++;
-		}
-	}
-	if (opts->is_l == 1)
-		process_l(opts, list, file);
-	if (opts->is_upper_r == 1)
-		process_upper_r(opts, list, file);
 }
 
 void	sort_ar(t_file **list, int s)
