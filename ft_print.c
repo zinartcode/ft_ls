@@ -52,24 +52,31 @@ void		print_time(time_t *date)
 
 void		print_total(t_opt *opts, t_file *list)
 {
-	// printf("opts->argf is: %d\n", opts->argf);
-	// printf("opts->argd is: %d\n", opts->argd);
 	if (opts->subdir == 1) //&& list->nfiles != 0)
 	{
-		if (opts->argf != 0 || opts->argd != 0)
-		ft_putchar('\n');
-		ft_putstr(opts->path);
-		ft_putchar(':');
-		ft_putchar('\n');
+		if (opts->is_upper_r == 0 && (opts->argf != 0 || opts->argd != 0))
+		{
+			ft_putchar('\n');
+			ft_putstr(&opts->path[2]);
+			ft_putchar(':');
+			ft_putchar('\n');
+		}
+		else //if (opts->argf == 0 || opts->argd == 0)
+		{
+			ft_putchar('\n');
+			ft_putstr(opts->path);
+			ft_putchar(':');
+			ft_putchar('\n');
+		}
 	}
-	if (opts->is_l == 1 || list->isdir == 1)
+	if (opts->is_l == 1) // && list->isdir != 0)
 	{
-		// if (list->total != 0)
-		// if (opts->is_upper_r == 1) // && list->nfiles != 0) // || opts->subdir != 0)
-		// 	{
-		ft_putstr("total ");
-		ft_putnbr(list->total);
-		ft_putchar('\n');
+		if (list->nfiles != 0 && opts->subdir != 0)
+		{
+			ft_putstr("total ");
+			ft_putnbr(list->total);
+			ft_putchar('\n');
+		}
 	}
 	opts->subdir = 0;
 }

@@ -30,7 +30,7 @@ void				process_args(t_opt *opts, DIR *dir)
 		}
 		else
 			p = ft_new_path(opts->path, sd->d_name);
-		// printf("p is: %s\n", p);
+		// printf("dname  is: %s\n", sd->d_name);
 		if ((lstat(p, &mystat)) == 0)
 		{
 			list->total += mystat.st_blocks;
@@ -119,7 +119,6 @@ char				*ft_new_path(char *original, char *name)
 		t = ft_strjoin(original, "/");
 		temp = ft_strjoin(t, name);
 		free(t);
-		// return (temp);
 	}
 	else
 		temp = ft_strjoin(original, name);

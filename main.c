@@ -23,21 +23,14 @@ int		main(int ac, char **av)
 	if (ac >= 2)
 	{
 		find_files(av, opts, i);
-		// printf("opts path: %s\n", opts->path);
 		if (opts->i != 0)
-		{
-			// printf("opts i is: %d\n", opts->i);
 			find_dirs(av, opts, i);
-		}
-
 	}
 	else if (ac == 1)
 		check_arg(opts, opts->path);
 	else
 		return (1);
 	free(opts);
-	// opts = NULL;
-	// printf("opts path: %d\n", opts->is_l);
 	return (0);
 }
 
@@ -86,7 +79,8 @@ void	get_flags(t_opt *opts, char **av)
 }
 
 // handle permission denied - insaccessible folder  - done
-// handle sort args
+// handle sort args - done
 // empty line?
 //  libft a file remove when compiling
 // test setuid setgid stickybit
+// remove debugging

@@ -23,6 +23,7 @@ void	display_files(t_opt *opts, t_file *list, t_file **file)
 			print_total(opts, list);
 		while (i < list->nfiles)
 		{
+			list->name = ft_strdup(file[i]->name);  //!!!! rmove if not needed
 			print_total(opts, list);
 			ft_putstr(file[i]->name);
 			ft_putchar('\n');
@@ -59,8 +60,13 @@ void	find_files(char **av, t_opt *opts, int i)
 		}
 		else
 			n++;
+		if (ft_strcmp(opts->hp, av[i]) == 0)
+		{
+			ft_putstr(".:\n");
+			check_arg(opts, opts->hp);
+		}
 		i++;
-	}
+	}	
 	if (n == 0)
 		check_arg(opts, opts->hp);
 	file = ft_memalloc(n * sizeof(file));
@@ -70,8 +76,6 @@ void	find_files(char **av, t_opt *opts, int i)
 			clear_file(file[k]);
 			check_if_file(opts, av[j], list, file[k]);
 			j++;
-			// printf("k is: %d\n", k);
-			// printf("file is: %s\n", file[k]->name);
 			if (list->nfiles > k)
 			{
 				k++;
@@ -82,14 +86,8 @@ void	find_files(char **av, t_opt *opts, int i)
 		}
 	sort_files(opts, list, file);
 	display_files(opts, list, file);
-	while (--k >= 0)
-	{
-		free(file[k]);
-		// clear_file(file[k]);
-		// printf("file is: %s\n", file[k]->name);
-	}
 	free(file);
-	// free(list);
+	free(list);
 }
 
 void	check_if_file(t_opt *opts, char *av, t_file *list, t_file *file)
