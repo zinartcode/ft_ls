@@ -35,6 +35,31 @@ void	get_type(struct stat *mystat, t_file *list)
 		list->permissions[0] = '?';
 }
 
+void	get_permission(struct stat *mystat, t_file *list)
+{
+	if (mystat->st_mode & S_ISUID)
+	{
+		if (mystat->st_mode & S_IXUSR)
+			list->permissions[3] = 's';
+		else
+			list->permissions[3] = 'S';
+	}
+	if (mystat->st_mode & S_ISGID)
+	{
+		if (mystat->st_mode & S_IXGRP)
+			list->permissions[6] = 's';
+		else
+			list->permissions[6] = 'S';
+	}
+	if (mystat->st_mode & S_ISVTX)
+	{
+		if (mystat->st_mode & S_IXOTH)
+			list->permissions[9] = 't';
+		else
+			list->permissions[9] = 'T';
+	}
+}
+
 void	getstats(struct stat *mystat, t_file *list)
 {
 	get_type(mystat, list);
@@ -47,6 +72,7 @@ void	getstats(struct stat *mystat, t_file *list)
 	list->permissions[7] = (mystat->st_mode & S_IROTH) ? 'r' : '-';
 	list->permissions[8] = (mystat->st_mode & S_IWOTH) ? 'w' : '-';
 	list->permissions[9] = (mystat->st_mode & S_IXOTH) ? 'x' : '-';
+	get_permission(mystat, list);
 	list->permissions[10] = '\0';
 	list->nlinks = (int)mystat->st_nlink;
 	list->username = getpwuid(mystat->st_uid)->pw_name;
@@ -94,13 +120,4 @@ void	process_upper_r(t_opt *opts, t_file *list, t_file **file)
 		i++;
 	}
 	free(p);
-}
-
-int		ok_to_recurse(char *path)
-{
-	if (ft_strcmp(path, ".") == 0)
-		return (0);
-	if (ft_strcmp(path, "..") == 0)
-		return (0);
-	return (1);
 }

@@ -94,6 +94,7 @@ void				process_args2(t_opt *opts, t_file *list, DIR *dir);
 void				process_args3(t_opt *opts, t_file **file, DIR *dir, int i);
 void				getstats(struct stat *mystat, t_file *list);
 void				get_type(struct stat *mystat, t_file *list);
+void				get_permission(struct stat *mystat, t_file *list);
 char				*ft_new_path(char *original, char *name);
 
 #endif
