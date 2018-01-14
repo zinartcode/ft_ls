@@ -75,3 +75,12 @@ void	check_if_dir(t_opt *opts, char *av, t_file *list, t_file *file)
 		list->nfiles++;
 	}
 }
+
+int		ok_to_recurse(char *path)
+{
+	if (ft_strcmp(path, ".") == 0)
+		return (0);
+	if (ft_strcmp(path, "..") == 0)
+		return (0);
+	return (1);
+}

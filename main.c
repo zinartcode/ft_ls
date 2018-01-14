@@ -82,5 +82,5 @@ void	get_flags(t_opt *opts, char **av)
 // handle sort args - done
 // empty line?
 //  libft a file remove when compiling
-// test setuid setgid stickybit
+// test setuid setgid stickybit - done
 // remove debugging
