@@ -47,6 +47,7 @@ void				process_args2(t_opt *opts, t_file *list, DIR *dir)
 	int				i;
 
 	i = 0;
+	list->isdir = 1;
 	dir = opendir(opts->path);
 	file = ft_memalloc(list->nfiles * sizeof(file));
 	process_args3(opts, file, dir, i);

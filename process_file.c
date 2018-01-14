@@ -68,7 +68,12 @@ void	find_files(char **av, t_opt *opts, int i)
 		i++;
 	}	
 	if (n == 0)
+	{
 		check_arg(opts, opts->hp);
+		exit(0);
+	}
+	else
+	{
 	file = ft_memalloc(n * sizeof(file));
 	file[k] = ft_memalloc(sizeof(t_file));
 	while (n > 0)
@@ -88,6 +93,7 @@ void	find_files(char **av, t_opt *opts, int i)
 	display_files(opts, list, file);
 	free(file);
 	free(list);
+ 	}
 }
 
 void	check_if_file(t_opt *opts, char *av, t_file *list, t_file *file)
