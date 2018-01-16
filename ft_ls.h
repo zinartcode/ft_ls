@@ -81,7 +81,6 @@ void				sort_date(t_file **list, int s);
 void				sort_date_rev(t_file **list, int s);
 void				display_files(t_opt *opts, t_file *list, t_file **file);
 void				clear_file(t_file *file);
-char				*mod_time(time_t mtime);
 void				get_flags(t_opt *opts, char **av);
 void				check_if_file(t_opt *opts, char *av, t_file *list, t_file *file);
 void				check_if_dir(t_opt *opts, char *av, t_file *list, t_file *file);
@@ -96,5 +95,6 @@ void				getstats(struct stat *mystat, t_file *list);
 void				get_type(struct stat *mystat, t_file *list);
 void				get_permission(struct stat *mystat, t_file *list);
 char				*ft_new_path(char *original, char *name);
+char				*mod_time(time_t mtime);
 
 #endif
