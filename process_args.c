@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 23:54:45 by azinnatu          #+#    #+#             */
-/*   Updated: 2018/01/12 00:13:29 by azinnatu         ###   ########.fr       */
+/*   Updated: 2018/01/16 00:56:14 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void				process_args(t_opt *opts, DIR *dir)
 		}
 		else
 			p = ft_new_path(opts->path, sd->d_name);
-		// printf("dname  is: %s\n", sd->d_name);
 		if ((lstat(p, &mystat)) == 0)
 		{
 			list->total += mystat.st_blocks;
@@ -108,20 +107,13 @@ void				check_arg(t_opt *opts, char *av)
 	}
 }
 
-char				*ft_new_path(char *original, char *name)
+void				process_flags(char *av, t_opt *opts)
 {
-	int				len;
-	char			*temp;
-	char			*t;
-
-	len = ft_strlen(original);
-	if ((*original) && ((original)[len - 1] != '/'))
+	if (av[0] == '-' && av[1] != '\0' && opts->argf == 0)
 	{
-		t = ft_strjoin(original, "/");
-		temp = ft_strjoin(t, name);
-		free(t);
+		get_flags(opts, &av);
+		opts->flag++;
 	}
 	else
-		temp = ft_strjoin(original, name);
-	return (temp);
+		opts->argf++;
 }

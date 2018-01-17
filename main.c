@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 00:20:18 by azinnatu          #+#    #+#             */
-/*   Updated: 2018/01/12 00:58:08 by azinnatu         ###   ########.fr       */
+/*   Updated: 2018/01/16 00:38:13 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,3 @@ void	get_flags(t_opt *opts, char **av)
 		}
 	}
 }
-
-// handle permission denied - insaccessible folder  - done
-// handle sort args - done
-// empty line?
-//  libft a file remove when compiling
-// test setuid setgid stickybit - done
-// remove debugging
