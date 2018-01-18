@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 15:38:20 by azinnatu          #+#    #+#             */
-/*   Updated: 2018/01/16 00:58:33 by azinnatu         ###   ########.fr       */
+/*   Updated: 2018/01/17 17:37:55 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		print_time(time_t *date)
 
 void		print_total(t_opt *opts, t_file *list)
 {
-	if (opts->subdir == 1)
+	if (opts->subdir == 1 && opts->i > 1)
 	{
 		if (opts->is_upper_r == 0 && (opts->argf != 0 || opts->i != 0))
 		{

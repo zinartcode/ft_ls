@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 23:43:54 by azinnatu          #+#    #+#             */
-/*   Updated: 2018/01/16 23:40:50 by azinnatu         ###   ########.fr       */
+/*   Updated: 2018/01/17 17:28:20 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,28 @@
 
 void		ft_lserror(char *str)
 {
-	int		i;
+	int		n;
 
-	i = 0;
+	n = ft_strlen(str);
+	while (str[n] != '/')
+		n--;
 	write(2, "ft_ls: ", 7);
-	while (str[i])
+	if (n > 0)
 	{
-		write(2, &str[i], 1);
-		i++;
+		while (str[n++])
+			write(2, &str[n], 1);
+		write(2, ": ", 2);
 	}
-	write(2, ": ", 2);
+	else if (n <= 0)
+	{
+		n = 0;
+		while (str[n])
+		{
+			write(2, &str[n], 1);
+			n++;
+		}
+		write(2, ": ", 2);
+	}
 }
 
 void		ft_puterror(char *str)
