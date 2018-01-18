@@ -6,7 +6,7 @@
 /*   By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 21:27:45 by azinnatu          #+#    #+#             */
-/*   Updated: 2018/01/12 01:22:53 by azinnatu         ###   ########.fr       */
+/*   Updated: 2018/01/17 22:30:51 by azinnatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	display_files(t_opt *opts, t_file *list, t_file **file)
 			print_total(opts, list);
 		while (i < list->nfiles)
 		{
-			list->name = ft_strdup(file[i]->name);  //!!!! rmove if not needed
 			print_total(opts, list);
 			ft_putstr(file[i]->name);
 			ft_putchar('\n');
@@ -33,71 +32,76 @@ void	display_files(t_opt *opts, t_file *list, t_file **file)
 	if (opts->is_l == 1)
 		process_l(opts, list, file);
 	if (opts->is_upper_r == 1)
+	{
+		opts->i = 2;
 		process_upper_r(opts, list, file);
+	}
 }
 
 void	find_files(char **av, t_opt *opts, int i)
 {
-	t_file	**file;
-	t_file	*list;
 	int		n;
 	int		j;
-	int		k;
-	int		count;
 
-	count = 1;
-	n = 0;
-	j = 1;
-	k = 0;
-	list = ft_memalloc(sizeof(t_file));
-	clear_file(list);
+	opts->flag = 1;
 	while (av[i] != '\0')
 	{
-		if (av[i][0] == '-' && av[i][1] != '\0' && n == 0)
-		{
-			get_flags(opts, &av[i]);
-			j++;
-		}
-		else
-			n++;
-		if (ft_strcmp(opts->hp, av[i]) == 0)
-		{
-			ft_putstr(".:\n");
-			check_arg(opts, opts->hp);
-		}
+		process_flags(av[i], opts);
 		i++;
-	}	
+	}
+	n = opts->argf;
+	opts->argf = 0;
+	j = opts->flag;
+	opts->flag = 0;
 	if (n == 0)
+	{
 		check_arg(opts, opts->hp);
+		exit(0);
+	}
+	else
+		ft_files(av, opts, n, j);
+}
+
+void	ft_files(char **av, t_opt *opts, int n, int j)
+{
+	t_file	**file;
+	t_file	*list;
+	int		k;
+
+	k = 0;
+	list = ft_memalloc(sizeof(t_file));
 	file = ft_memalloc(n * sizeof(file));
 	file[k] = ft_memalloc(sizeof(t_file));
+	clear_file(list);
 	while (n > 0)
+	{
+		clear_file(file[k]);
+		ft_file(opts, av[j], list, file[k]);
+		j++;
+		if (list->nfiles > k)
 		{
-			clear_file(file[k]);
-			check_if_file(opts, av[j], list, file[k]);
-			j++;
-			if (list->nfiles > k)
-			{
-				k++;
-				count++;
-				file[k] = ft_memalloc(sizeof(t_file));
-			}
-			n--;
+			k++;
+			file[k] = ft_memalloc(sizeof(t_file));
 		}
+		n--;
+	}
 	sort_files(opts, list, file);
 	display_files(opts, list, file);
 	free(file);
 	free(list);
 }
 
-void	check_if_file(t_opt *opts, char *av, t_file *list, t_file *file)
+void	ft_file(t_opt *opts, char *av, t_file *list, t_file *file)
 {
 	DIR				*dir;
 	struct stat		myst;
 	char			*p;
 
 	dir = ft_memalloc(sizeof(DIR));
-	p = ft_new_path(opts->hp, av);
+	if (ft_strcmp(opts->hp, av) == 0)
+		p = ft_strdup(av);
+	else
+		p = ft_new_path(opts->hp, av);
 	if (stat(p, &myst) == 0 && S_ISREG(myst.st_mode))
 	{
 		opts->argf++;
@@ -111,10 +115,7 @@ void	check_if_file(t_opt *opts, char *av, t_file *list, t_file *file)
 	else if (stat(p, &myst) == 0 && S_ISDIR(myst.st_mode))
 		opts->i++;
 	else
-	{
-		// printf("im here\n");
-		check_arg(opts, av);	
-	}
+		check_arg(opts, av);
 	free(p);
 }
 

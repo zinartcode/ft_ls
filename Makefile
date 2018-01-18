@@ -6,7 +6,7 @@
 #    By: azinnatu <azinnatu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 19:05:46 by azinnatu          #+#    #+#              #
-#    Updated: 2018/01/12 00:25:05 by azinnatu         ###   ########.fr        #
+#    Updated: 2018/01/17 17:48:04 by azinnatu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ OBJS =	main.o \
 		process_args.o \
 		process_file.o \
 		process_dir.o \
-		ft_error.o \
+		utilities.o \
 		ft_print.o				
 
 LIBFT= libft/libft.a
