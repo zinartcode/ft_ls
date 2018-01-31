@@ -1,11 +1,11 @@
-Ft_ls
+# Ft_ls
 
-This project reproduces the behavior of the shell command 'ls' with some options.
+# This project reproduces the behavior of the shell command 'ls' with some options.
 
 usage: ./ft_ls [-lAaRr] [file ...]
 
--a (include '.' dirs)
--A (List all)
--l (show long format)
--r (reverse listing)
--R (recursively down)
+__-a (include '.' dirs)__
+__-A (List all)__
+__-l (show long format)__
+__-r (reverse listing)__
+__-R (recursively down)__
