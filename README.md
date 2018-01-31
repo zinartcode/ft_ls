@@ -4,8 +4,8 @@
 
 usage: ./ft_ls [-lAaRr] [file ...]
 
-__-a (include '.' dirs)__
-__-A (List all)__
-__-l (show long format)__
-__-r (reverse listing)__
-__-R (recursively down)__
+*__-a (include '.' dirs)__
+*__-A (List all)__
+*__-l (show long format)__
+*__-r (reverse listing)__
+*__-R (recursively down)__
