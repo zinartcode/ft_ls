@@ -2,8 +2,8 @@
 
 # This project reproduces the behavior of the shell command 'ls' with some options.
 
-To compile: run make
-usage: ./ft_ls [-lAaRr] [file ...]
+### To compile: run make
+### usage: ./ft_ls [-lAaRr] [file ...]
 
 * __-a (include '.' dirs)__
 * __-A (List all)__
