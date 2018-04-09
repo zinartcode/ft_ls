@@ -2,6 +2,26 @@
 
 # This project reproduces the behavior of the shell command 'ls' with some options.
 
+## Allowed functions:
+*  write
+* opendir
+* readdir
+* closedir
+* stat
+* lstat
+* getpwuid
+* getgrgid
+* listxattr
+* getxattr
+* time
+* ctime
+* readlink
+* malloc
+* free
+* perror
+* strerror
+* exit
+
 ### To compile:  run make
 ### usage: ./ft_ls [-lAaRr] [file ...]
 
